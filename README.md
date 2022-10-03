@@ -15,7 +15,7 @@ Projeto de Conclusão de Curso da Turma de Engenharia da Computação da Univers
 1. Clone o Projeto para sua máquina local
 
 2. Dê permissão no diretório `storage`:
-   1. Linux: `sudo chmod o+w ./storage/ -R`
+   1. Linux: `sudo chmod o+w ./atcc-laravel/storage/ -R`
    2. Windows (se necessário): [aqui](https://answers.microsoft.com/en-us/windows/forum/all/give-permissions-to-files-and-folders-in-windows/78ee562c-a21f-4a32-8691-73aac1415373)
 
 3. Inicie os containers pela primeira vez `docker-compose up`
