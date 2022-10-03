@@ -51,7 +51,7 @@
         "migrate": "docker exec college-web-laravel-1 php artisan migrate",
         "migrate-rollback": "docker exec college-web-laravel-1 php artisan migrate:rollback",
         "make-migration": "docker exec college-web-laravel-1 php artisan make:migration",
-        "make-model": "docker exec college-web-laravel-1 php artisan make:model",
+        "make-model": "docker exec college-web-laravel-1 php artisan make:model"
     },
     "extra": {
         "laravel": {
