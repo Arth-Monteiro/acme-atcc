@@ -6,4 +6,5 @@ dbdata
 
 .idea
 
-
+atcc-laravel/public/css/app.css
+atcc-laravel/public/js/app.js

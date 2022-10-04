@@ -1,6 +1,10 @@
-FROM php:8.2.0RC3-fpm-alpine3.16
-RUN apk add --no-cache openssl bash nodejs npm postgresql-dev
+FROM php:8.1.11-fpm-alpine3.16
+ENV TZ=America/Sao_Paulo
+RUN apk add --no-cache openssl bash nodejs npm postgresql-dev 
 RUN docker-php-ext-install bcmath pdo pdo_pgsql
+RUN apk add --no-cache $PHPIZE_DEPS \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
 WORKDIR /var/www/html
 
