@@ -48,10 +48,10 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "migrate": "docker exec college-web-laravel-1 php artisan migrate",
-        "migrate-rollback": "docker exec college-web-laravel-1 php artisan migrate:rollback",
-        "make-migration": "docker exec college-web-laravel-1 php artisan make:migration",
-        "make-model": "docker exec college-web-laravel-1 php artisan make:model"
+        "migrate": "docker exec acme-atcc-web-laravel-1 php artisan migrate",
+        "migrate-rollback": "docker exec acme-atcc-web-laravel-1 php artisan migrate:rollback",
+        "make-migration": "docker exec acme-atcc-web-laravel-1 php artisan make:migration",
+        "make-model": "docker exec acme-atcc-web-laravel-1 php artisan make:model"
     },
     "extra": {
         "laravel": {
