@@ -18,12 +18,12 @@ Projeto de Conclusão de Curso da Turma de Engenharia da Computação da Univers
 3. Dê permissão no diretório `storage`:
    1. Linux: `sudo chmod o+w ./atcc-laravel/storage/ -R`
    2. Windows (se necessário): [aqui](https://answers.microsoft.com/en-us/windows/forum/all/give-permissions-to-files-and-folders-in-windows/78ee562c-a21f-4a32-8691-73aac1415373)
-4. Rode o comando `composer update` para instalar as dependências
-5. Acesse o diretório `atcc-laravel`
-6. Rode o comando `npm install` para instalar dependências
-7. Rode o comando `npm run dev` para buildar
-8. Rode o comando `composer migrate` para finalizar a criação das tabelas no banco de dados
-9. Inicie os containers pela primeira vez `docker-compose up`
+4. Inicie os containers pela primeira vez `docker-compose up -d`
+5. Rode o comando `composer update` para instalar as dependências
+6. Acesse o diretório `atcc-laravel`
+7. Rode o comando `npm install` para instalar dependências
+8. Rode o comando `npm run dev` para buildar
+9. Rode o comando `composer migrate` para finalizar a criação das tabelas no banco de dados
 10. Ao fim do processo, deverá ser possível acessar o projeto em http://localhost:8000/login
 
 ### Considerações
