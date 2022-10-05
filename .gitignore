@@ -8,3 +8,7 @@ dbdata
 
 atcc-laravel/public/css/app.css
 atcc-laravel/public/js/app.js
+
+.vscode
+
+package-lock.json
