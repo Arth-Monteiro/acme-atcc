@@ -8,54 +8,23 @@
         </div>
 
 
-        <div style="border: 1px solid black">
-            @foreach($tags as $tag)
-                <div class="tag-row {{$tag->status === 'Active' ? "green" : "red" }}">
-                    <a href="{{ route('view_edit_tag', ['id' => $tag->id]) }}" class="flex-grow-1 ">{{ $tag->code }}</a>
-                    <div class="w-25">{{ $tag->sub_status }}</div>
-                    <div class="">{{ $tag->access_level }}</div>
-                </div>
-            @endforeach
-        </div>
+        <table class="list-table">
+            <thead>
+                <tr class="list-row header">
+                    <th width="63%">Code</th>
+                    <th width="15%">Sub Status</th>
+                    <th width="12%" class="text-center">Access Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($tags as $tag)
+                    <tr onclick="window.location='{{ route('view_edit_tag', ['id' => $tag->id]) }}'" class="list-row body {{$tag->status === 'Active' ? "green" : "red" }}">
+                        <td width="63%">{{ $tag->code }}</td>
+                        <td width="15%">{{ $tag->sub_status }}</td>
+                        <td width="12%" class="text-center">{{ $tag->access_level }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection
-
-<style>
-    .register-button {
-        background-color: #4b89e2;
-        padding: 7px 20px;
-        border-radius: 5px;
-        text-decoration: none;
-        color: black;
-    }
-
-    .register-button:hover {
-        background-color: #0dcaf0;
-        color: black;
-    }
-
-    .tag-row {
-        display: flex;
-        justify-content: space-between;
-        column-gap: 30px;
-        font-size: 18px;
-        padding: 0 10px;
-    }
-
-    .tag-row a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .tag-row:hover {
-        background-color: #788585;
-     }
-
-    .green {
-        background-color: #00b932;
-    }
-
-    .red {
-        background-color: #e80b0b;
-    }
-</style>

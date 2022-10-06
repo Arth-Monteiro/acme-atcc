@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\People;
 use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +52,7 @@ class PeopleController extends Controller
      *
      * @return Renderable
      */
-    public function editForm(int $id) #: Renderable | Redirector
+    public function editForm(int $id): Renderable | RedirectResponse
     {
         $person = People::find($id);
 
@@ -74,10 +75,10 @@ class PeopleController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  Request  $request
-     * @return People
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function create(Request $request) #: People
+    public function create(Request $request): RedirectResponse
     {
         if ($request->validate(People::validator())) {
             $person = People::create($request->all() + [
@@ -93,7 +94,13 @@ class PeopleController extends Controller
         }
     }
 
-    public function update(Request $request) #: People
+    /**
+     * Edit a user instance after a valid registration.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(Request $request): RedirectResponse
     {
         $id = $request->id;
 
@@ -107,6 +114,21 @@ class PeopleController extends Controller
             $person = People::find($id);
             $person->update($request->all() + ['update_by' => Auth::user()->name]);
 
+            return redirect(route('list_people'));
+        }
+    }
+
+    /**
+     * Delete a user instance.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete(Request $request): RedirectResponse
+    {
+        $id = $request->id;
+
+        if (People::find($id)->delete()) {
             return redirect(route('list_people'));
         }
     }

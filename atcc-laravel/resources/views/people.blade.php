@@ -8,42 +8,23 @@
         </div>
 
 
-        <div style="border: 1px solid black">
-            @foreach($people as $person)
-                <div class="person-row">
-                    <a href="{{ route('view_edit_person', ['id' => $person->id]) }}" class="flex-grow-1">{{$person->firstname . ' ' . $person->lastname }}</a>
-                    <div>{{ $person->cpf }}</div>
-                    <div class="w-25 text-end">{{ $person->qualification }}</div>
-                </div>
-            @endforeach
-        </div>
+        <table class="list-table">
+            <thead>
+                <tr class="list-row header">
+                    <th width="63%">Name</th>
+                    <th width="15%">Cpf</th>
+                    <th width="12%">Qualification</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($people as $person)
+                    <tr onclick="window.location='{{ route('view_edit_person', ['id' => $person->id]) }}'" class="list-row body">
+                        <td width="63%">{{$person->firstname . ' ' . $person->lastname }}</td>
+                        <td width="15%">{{ $person->cpf }}</td>
+                        <td width="12%">{{ $person->qualification }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection
-
-<style>
-    .register-button {
-        background-color: #4b89e2;
-        padding: 7px 20px;
-        border-radius: 5px;
-        text-decoration: none;
-        color: black;
-    }
-
-    .register-button:hover {
-        background-color: #0dcaf0;
-        color: black;
-    }
-
-    .person-row {
-        display: flex;
-        justify-content: space-between;
-        column-gap: 30px;
-        font-size: 18px;
-        padding: 0 10px;
-    }
-
-    .person-row a {
-        text-decoration: none;
-        color: black;
-    }
-</style>

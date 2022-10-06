@@ -116,7 +116,12 @@
                             </div>
 
                             <div class="row mb-0">
-                                <div class="d-flex justify-content-end">
+                                <div class="d-flex justify-content-end" style="column-gap: 10px">
+                                    @if (isset($tag))
+                                        <button class="btn red">
+                                            {{ __('Remove') }}
+                                        </button>
+                                    @endif
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Save') }}
                                     </button>
