@@ -11,6 +11,15 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"
+            integrity="sha512-51l8tSwY8XyM6zkByW3A0E36xeiwDpSQnvDfjBAzJAO9+O1RrEcOFYAs3yIF3EDRS/QWPqMzrl6t7ZKEJgkCgw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 
@@ -20,7 +29,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/list.css') }}" rel="stylesheet">
+
+    @stack('styles_scripts')
 </head>
 <body>
     <div id="app" class="d-flex flex-column" style="min-height: 100vh">
@@ -62,10 +72,10 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Painel') }}</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ route('list_people') }}">{{ __('Pessoas') }}</a>
+                                <a class="nav-link" href="{{ route('people_index') }}">{{ __('People') }}</a>
                             </li>
                             <li>
-                                <a class="nav-link" href="{{ route('list_tags') }}">{{ __('Crachás') }}</a>
+                                <a class="nav-link" href="{{ route('tags_index') }}">{{ __('Tags') }}</a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Dashboards') }}</a>

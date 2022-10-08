@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\People;
 use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,21 @@ class PeopleController extends Controller
      */
     public function index(): Renderable
     {
-        $people = People::all(['id', 'firstname', 'lastname', 'cpf', 'qualification']);
-        return view('people', ['people' => $people]);
+//        $people = People::all(['id', 'firstname', 'lastname', 'cpf', 'qualification']);
+//        return view('people', ['people' => $people]);
+        return view('people.index');
+    }
+
+    public function searchPeople(Request $request): JsonResponse
+    {
+        $people = People::paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf']);
+
+        $html = '';
+        foreach ($people as $person) {
+            $html .= view('people.card', compact('person'));
+        }
+
+        return response()->json(['html' => $html, 'next' => $people  ]);
     }
 
     /**
@@ -76,7 +90,7 @@ class PeopleController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param Request $request
-     * @return RedirectResponse
+     * @return
      */
     public function create(Request $request): RedirectResponse
     {
@@ -90,7 +104,7 @@ class PeopleController extends Controller
             $tag->sub_status = 'In use';
             $tag->save();
 
-            return redirect(route('list_people'));
+            return redirect(route('people_index'));
         }
     }
 
@@ -114,7 +128,7 @@ class PeopleController extends Controller
             $person = People::find($id);
             $person->update($request->all() + ['update_by' => Auth::user()->name]);
 
-            return redirect(route('list_people'));
+            return redirect(route('people_index'));
         }
     }
 
@@ -129,7 +143,7 @@ class PeopleController extends Controller
         $id = $request->id;
 
         if (People::find($id)->delete()) {
-            return redirect(route('list_people'));
+            return redirect(route('people_index'));
         }
     }
 }

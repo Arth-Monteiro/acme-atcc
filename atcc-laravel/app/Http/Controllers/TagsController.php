@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TagsController extends Controller
@@ -25,8 +27,19 @@ class TagsController extends Controller
      */
     public function index(): Renderable
     {
-        $tags = Tags::all(['id', 'code', 'status', 'sub_status', 'access_level']);
-        return view('tags', ['tags' => $tags]);
+        return view('tags.index');
+    }
+
+    public function searchTags(Request $request): JsonResponse
+    {
+        $tags = Tags::paginate(15, ['id', 'code', 'status', 'sub_status', 'access_level']);
+
+        $html = '';
+        foreach ($tags as $tag) {
+            $html .= view('tags.card', compact('tag'));
+        }
+
+        return response()->json(['html' => $html, 'next' => $tags  ]);
     }
 
     /**
@@ -42,9 +55,10 @@ class TagsController extends Controller
     /**
      * Show the form to edit tag.
      *
-     * @return Renderable
+     * @param int $id
+     * @return Renderable|RedirectResponse
      */
-    public function editForm(int $id) #: Renderable | Redirector
+    public function editForm(int $id): Renderable | RedirectResponse
     {
         $tag = Tags::find($id);
 
@@ -58,20 +72,20 @@ class TagsController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  Request  $request
-     * @return Tags
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function create(Request $request) #: Tags
+    public function create(Request $request): RedirectResponse
     {
         if ($request->validate(Tags::validator())) {
 
             Tags::create($request->all());
-            return redirect(route('list_tags'));
+            return redirect(route('tags_index'));
 
         }
     }
 
-    public function update(Request $request) #: Tags
+    public function update(Request $request): RedirectResponse
     {
         $id = $request->id;
 
@@ -83,7 +97,7 @@ class TagsController extends Controller
             $tag = Tags::find($id);
             $tag->update($request->all());
 
-            return redirect(route('list_tags'));
+            return redirect(route('tags_index'));
         }
     }
 }

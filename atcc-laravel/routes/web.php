@@ -34,6 +34,10 @@ Route::get('/home',
 //Route for PEOPLE
 Route::get('/people',
     [PeopleController::class, 'index']
+)->name('people_index');
+
+Route::get('/people/list',
+    [PeopleController::class, 'searchPeople']
 )->name('list_people');
 
 Route::get('/people/create',
@@ -58,6 +62,10 @@ Route::post('/people/{id}',
 
 Route::get('/tags',
     [TagsController::class, 'index']
+)->name('tags_index');
+
+Route::get('/tags/list',
+    [TagsController::class, 'searchTags']
 )->name('list_tags');
 
 Route::get('/tags/create',
