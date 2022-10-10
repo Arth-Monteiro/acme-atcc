@@ -32,35 +32,6 @@
     background-color: #ccc;
 }
 
-/*.list-table {*/
-/*    border: 1px solid black;*/
-/*    min-height: 500px;*/
-/*    max-height: 500px;*/
-/*    overflow-y: auto;*/
-/*}*/
-
-/*.list-row {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    column-gap: 30px;*/
-/*    font-size: 18px;*/
-/*    padding: 0 15px;*/
-/*    text-decoration: none;*/
-/*    color: black;*/
-/*    align-items: baseline;*/
-/*    align-content: baseline;*/
-/*}*/
-
-/*.header {*/
-/*    text-transform: uppercase;*/
-/*    background-color: #4b89e2;*/
-/*}*/
-
-/*.body:hover {*/
-/*    background-color: #788585;*/
-/*    cursor: pointer;*/
-/*}*/
-
 .green {
     background-color: #00b932;
 }
