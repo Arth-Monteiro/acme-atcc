@@ -20,6 +20,13 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
+            integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+
+    <script src="{{ asset('js/main.js') }}"></script>
+
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 
@@ -29,13 +36,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+
 
     @stack('styles_scripts')
 </head>
 <body>
     <div id="app" class="d-flex flex-column" style="min-height: 100vh">
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}" >
                     {{ config('app.name', 'Laravel') }}
@@ -47,10 +56,6 @@
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-{{--                    <!-- Left Side Of Navbar -->--}}
-{{--                    <ul class="navbar-nav me-auto">--}}
-
-{{--                    </ul>--}}
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -69,15 +74,15 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Painel') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Panel') }}</a>
                             </li>
-                            <li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('people_index') }}">{{ __('People') }}</a>
                             </li>
-                            <li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('tags_index') }}">{{ __('Tags') }}</a>
                             </li>
-                            <li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Dashboards') }}</a>
                             </li>
 

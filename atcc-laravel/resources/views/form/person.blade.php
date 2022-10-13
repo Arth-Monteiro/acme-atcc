@@ -1,5 +1,32 @@
 @extends('layouts.app')
 
+@push('styles_scripts')
+    <script>
+        $(document).ready(function() {
+            const cpf = $('#cpf');
+            cpf.mask('000.000.000-00', {reverse: true});
+
+            const cel = $('#cellphone');
+            cel.mask('(00) 00000-0000');
+
+            const emergency = $('#emergency_contact');
+            emergency.mask('(00) 00000-0000');
+
+            $("form").submit(function(){
+                cpf.val(removeMask(cpf.val()));
+                cel.val(removeMask(cel.val()));
+                emergency.val(removeMask(emergency.val()));
+            });
+        })
+    </script>
+
+    <style>
+        .input-register {
+            width: 28%;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="container w-75">
         <div class="row justify-content-center">
@@ -99,7 +126,7 @@
 
                                         <div>
                                             <input id="cellphone"
-                                                   type="text"
+                                                   type="tel"
                                                    class="form-control @error('cellphone') is-invalid @enderror"
                                                    name="cellphone"
                                                    value="{{ $person->cellphone ?? old('cellphone') }}"
@@ -119,7 +146,7 @@
 
                                         <div>
                                             <input id="emergency_contact"
-                                                   type="text"
+                                                   type="tel"
                                                    class="form-control @error('emergency_contact') is-invalid @enderror"
                                                    name="emergency_contact"
                                                    value="{{ $person->emergency_contact ?? old('emergency_contact') }}"
@@ -270,10 +297,3 @@
         </div>
     </div>
 @endsection
-
-<style>
-    .input-register {
-        width: 28%;
-    }
-
-</style>

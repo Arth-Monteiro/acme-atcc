@@ -32,7 +32,7 @@ class TagsController extends Controller
 
     public function searchTags(Request $request): JsonResponse
     {
-        $tags = Tags::paginate(15, ['id', 'code', 'status', 'sub_status', 'access_level']);
+        $tags = Tags:::orderBy('id')->paginate(15, ['id', 'code', 'status', 'sub_status', 'access_level']);
 
         $html = '';
         foreach ($tags as $tag) {

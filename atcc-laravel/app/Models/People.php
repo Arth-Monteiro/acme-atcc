@@ -44,7 +44,7 @@ class People extends Model
         return [
             'firstname' => ['required', 'string', 'max:15'],
             'lastname' => ['required', 'string', 'max:32'],
-            'cpf' => ['required', 'string', 'max:11', 'unique:people,cpf'],
+            'cpf' => ['required', 'string', 'min:11', 'max:11', 'unique:people,cpf'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:people,email'],
             'cellphone' => ['required', 'string', 'max:15'],
             'blood_type' => ['required', Rule::in(self::BLOOD_TYPES)],
