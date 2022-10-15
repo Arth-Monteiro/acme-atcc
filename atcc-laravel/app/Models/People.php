@@ -52,7 +52,7 @@ class People extends Model
             'company' => ['string', 'max:64'],
             'job_title' => ['string', 'max:20'],
             'qualification' => ['required', Rule::in(self::QUALIFICATION)],
-            'tag_id' => ['required', 'integer', 'unique:people,tag_id'],
+            'tag_id' => ['required', 'integer', 'unique:people,tag_id', 'exists:tags,id'],
         ];
     }
 }
