@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\TagsController;
 use Illuminate\Support\Facades\Auth;
@@ -30,58 +31,43 @@ Route::get('/home',
     [HomeController::class, 'index']
 )->name('home')->middleware('auth');
 
+
+//*****************************************
+//Route for PANEL
+Route::controller(PanelController::class)->group(function () {
+    Route::get('/panel', 'index')->name('panel_index');
+    Route::get('/panel/list', 'searchBuildingInfos')->name('list_panel');
+
+});
+//*****************************************
+
+
 //*****************************************
 //Route for PEOPLE
-Route::get('/people',
-    [PeopleController::class, 'index']
-)->name('people_index');
+Route::controller(PeopleController::class)->group(function () {
+    // GET
+    Route::get('/people', 'index')->name('people_index');
+    Route::get('/people/list', 'searchPeople')->name('list_people');
+    Route::get('/people/create', 'createForm')->name('view_create_person');
+    Route::get('/people/{id}', 'editForm')->name('view_edit_person');
 
-Route::get('/people/list',
-    [PeopleController::class, 'searchPeople']
-)->name('list_people');
-
-Route::get('/people/create',
-    [PeopleController::class, 'createForm']
-)->name('view_create_person');
-
-Route::get('/people/{id}',
-    [PeopleController::class, 'editForm']
-)->name('view_edit_person');
-
-Route::post('/people',
-    [PeopleController::class, 'create']
-)->name('post_person');
-
-Route::post('/people/{id}',
-    [PeopleController::class, 'update']
-)->name('put_person');
+    // POST
+    Route::post('/people', 'create')->name('post_person');
+    Route::post('/people/{id}', 'update')->name('put_person');
+});
 //*****************************************
 
 //*****************************************
 // Route for TAGS
+Route::controller(TagsController::class)->group(function () {
+    // GET
+    Route::get('/tags','index')->name('tags_index');
+    Route::get('/tags/list', 'searchTags')->name('list_tags');
+    Route::get('/tags/create', 'createForm')->name('view_create_tag');
+    Route::get('/tags/{id}', 'editForm')->name('view_edit_tag');
 
-Route::get('/tags',
-    [TagsController::class, 'index']
-)->name('tags_index');
-
-Route::get('/tags/list',
-    [TagsController::class, 'searchTags']
-)->name('list_tags');
-
-Route::get('/tags/create',
-    [TagsController::class, 'createForm']
-)->name('view_create_tag');
-
-Route::get('/tags/{id}',
-    [TagsController::class, 'editForm']
-)->name('view_edit_tag');
-
-Route::post('/tags',
-    [TagsController::class, 'create']
-)->name('post_tag');
-
-Route::post('/tags/{id}',
-    [TagsController::class, 'update']
-)->name('put_tag');
-
+    // POST
+    Route::post('/tags', 'create')->name('post_tag');
+    Route::post('/tags/{id}', 'update')->name('put_tag');
+});
 //*****************************************

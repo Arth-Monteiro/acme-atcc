@@ -74,7 +74,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Panel') }}</a>
+                                <a class="nav-link" href="{{ route('panel_index') }}">{{ __('Panel') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('people_index') }}">{{ __('People') }}</a>
