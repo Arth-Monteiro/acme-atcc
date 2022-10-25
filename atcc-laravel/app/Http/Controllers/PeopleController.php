@@ -83,14 +83,14 @@ class PeopleController extends Controller
             return view('form.person', ['person' => $person, 'tags' => $tags]);
         }
 
-        return redirect(route('view_create_person'));
+        return redirect(route('view_create_people'));
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param Request $request
-     * @return
+     * @return RedirectResponse
      */
     public function create(Request $request): RedirectResponse
     {

@@ -9,7 +9,7 @@
     <div class="container w-75 d-flex flex-column gap-lg-5">
         <div class="d-flex align-items-center justify-content-between">
             <input id="code" type="text" class="form-control w-25" name="code" autofocus placeholder="Search by CODE...">
-            <a class="register-button" href="{{ route('view_create_tag') }}">{{ __('Register Tag') }}</a>
+            <a class="register-button" href="{{ route('view_create_tags') }}">{{ __('Register Tag') }}</a>
         </div>
 
         <div class="infinite-scroll">

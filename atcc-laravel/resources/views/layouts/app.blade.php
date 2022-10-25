@@ -93,7 +93,20 @@
 
                                 <div class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="navbarDropdown">
 
-                                    <p class="pt-2 pb-3 border-bottom fw-bold">{{ Auth::user()->name }}</p>
+                                    <div class="d-flex justify-content-evenly pt-2 pb-2 ps-2 pe-2 border-bottom fw-bold">
+                                        <p>{{ Auth::user()->name }}</p>
+                                        @if(in_array($role = Auth::user()->getRole('code'), [ 'super_admin', 'admin', ]))
+                                            <i class="fas fa-solid fa-star" style="color: {{$role === 'super_admin' ? 'blue' : 'gray'}}; font-size: 1.3em;"></i>
+                                        @endif
+                                    </div>
+
+                                    {{-- TODO: CREATE ROUTES--}}
+                                    @if(in_array($role = Auth::user()->getRole('code'), [ 'super_admin', 'admin', ]))
+                                        <a class="dropdown-item" href="{{ route('roles_index') }}">{{ __('Roles') }}</a>
+                                        <a class="dropdown-item" href="{{''}}">{{ __('Companies') }}</a>
+                                        <a class="dropdown-item" href="{{''}}">{{ __('Users') }}</a>
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
