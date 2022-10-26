@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Roles;
 use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
@@ -98,6 +99,26 @@ class TagsController extends Controller
             $tag->update($request->all());
 
             return redirect(route('tags_index'));
+        }
+    }
+
+    /**
+     * Delete a tag instance.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function delete(Request $request): JsonResponse
+    {
+        $id = $request->id;
+
+        try {
+            if (Tags::find($id)->delete()) {
+                return response()->json(['location' => route('tags_index')]);
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['msg' => 'Tag in use! Cannot delete this tag.'], 500);
+
         }
     }
 }

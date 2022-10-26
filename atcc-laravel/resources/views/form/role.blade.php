@@ -150,7 +150,7 @@
                             <div class="row mb-0 mt-3">
                                 <div class="d-flex justify-content-end" style="column-gap: 10px">
                                     @if (isset($role))
-                                        <button class="btn red">
+                                        <button id="delete" class="btn" style="background-color: red;">
                                             {{ __('Remove') }}
                                         </button>
                                     @endif

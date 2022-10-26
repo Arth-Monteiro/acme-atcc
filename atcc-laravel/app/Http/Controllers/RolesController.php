@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\People;
 use App\Models\Roles;
-use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RolesController extends Controller
 {
@@ -130,6 +127,21 @@ class RolesController extends Controller
         ]);
 
         return $request;
+    }
+
+    /**
+     * Delete a role instance.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function delete(Request $request): JsonResponse
+    {
+        $id = $request->id;
+
+        if (Roles::find($id)->delete()) {
+            return response()->json(['location' => route('roles_index')]);
+        }
     }
 
 }

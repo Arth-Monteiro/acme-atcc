@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @push('styles_scripts')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <script>
         $(document).ready(function() {
             const cnpj = $('#cnpj');
@@ -119,7 +121,7 @@
                                 <div class="row mt-lg-3 mb-0">
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($company))
-                                            <button class="btn red">
+                                            <button id="delete" type="button" class="btn" style="background-color: red;">
                                                 {{ __('Remove') }}
                                             </button>
                                         @endif

@@ -131,17 +131,17 @@ class PeopleController extends Controller
     }
 
     /**
-     * Delete a user instance.
+     * Delete a role instance.
      *
      * @param Request $request
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function delete(Request $request): RedirectResponse
+    public function delete(Request $request): JsonResponse
     {
         $id = $request->id;
 
         if (People::find($id)->delete()) {
-            return redirect(route('people_index'));
+            return response()->json(['location' => route('people_index')]);
         }
     }
 }

@@ -15,9 +15,3 @@
         </table>
     </div>
 </div>
-
-{{--<script>--}}
-{{--    $(document).ready(function() {--}}
-{{--        $('.cnpj').mask('000.000.000/0000-00');--}}
-{{--    })--}}
-{{--</script>--}}

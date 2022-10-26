@@ -41,6 +41,8 @@ Route::controller(RolesController::class)->group(function () {
     Route::post('/roles', 'create')->name('roles_post');
     Route::post('/roles/{id}', 'update')->name('roles_put');
 
+    // DELETE
+    Route::delete('/roles/{id}', 'delete')->name('roles_delete');
 });
 //*****************************************
 
@@ -55,6 +57,9 @@ Route::controller(CompaniesController::class)->group(function () {
     // POST
     Route::post('/companies', 'create')->name('companies_post');
     Route::post('/companies/{id}', 'update')->name('companies_put');
+
+    // DELETE
+    Route::delete('/companies/{id}', 'delete')->name('companies_delete');
 });
 //*****************************************
 
@@ -78,6 +83,9 @@ Route::controller(PeopleController::class)->group(function () {
     // POST
     Route::post('/people', 'create')->name('people_post');
     Route::post('/people/{id}', 'update')->name('people_put');
+
+    // DELETE
+    Route::delete('/people/{id}', 'delete')->name('people_delete');
 });
 //*****************************************
 
@@ -93,5 +101,8 @@ Route::controller(TagsController::class)->group(function () {
     // POST
     Route::post('/tags', 'create')->name('tags_post');
     Route::post('/tags/{id}', 'update')->name('tags_put');
+
+    // DELETE
+    Route::delete('/tags/{id}', 'delete')->name('tags_delete');
 });
 //*****************************************

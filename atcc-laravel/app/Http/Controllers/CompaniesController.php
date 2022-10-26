@@ -104,4 +104,19 @@ class CompaniesController extends Controller
             return redirect(route('companies_index'));
         }
     }
+
+    /**
+     * Delete a comapny instance.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function delete(Request $request): JsonResponse
+    {
+        $id = $request->id;
+
+        if (Companies::find($id)->delete()) {
+            return response()->json(['location' => route('companies_index')]);
+        }
+    }
 }

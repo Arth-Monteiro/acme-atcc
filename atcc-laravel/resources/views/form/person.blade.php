@@ -13,7 +13,7 @@
             emergency.mask('(00) 00000-0000');
 
             $("form").submit(function(){
-                cpf.val(removeMask(cpf.val()));
+                cpf.val(removeMask(cpf.val()));company
                 cel.val(removeMask(cel.val()));
                 emergency.val(removeMask(emergency.val()));
             });
@@ -281,7 +281,7 @@
                             <div class="row mt-lg-3 mb-0">
                                 <div class="d-flex justify-content-end" style="column-gap: 10px">
                                     @if (isset($person))
-                                        <button class="btn red">
+                                        <button id="delete" class="btn" style="background-color: red;">
                                             {{ __('Remove') }}
                                         </button>
                                     @endif
