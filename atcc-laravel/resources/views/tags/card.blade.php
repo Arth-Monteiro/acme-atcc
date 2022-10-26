@@ -1,4 +1,4 @@
-<div class="card card-link" onclick="window.location='{{ route('view_edit_tags', ['id' => $tag->id] ) }}'">
+<div class="card card-link" onclick="window.location='{{ route('tags_view_edit', ['id' => $tag->id] ) }}'">
     <div class="card-header {{ $tag->status === 'Active' ? 'green' : 'red' }}">
         {{ $tag->code }}
     </div>

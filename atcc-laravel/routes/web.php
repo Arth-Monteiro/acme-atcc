@@ -5,6 +5,7 @@ use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\CompaniesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,10 +45,24 @@ Route::controller(RolesController::class)->group(function () {
 //*****************************************
 
 //*****************************************
+//Route for COMPANIES
+Route::controller(CompaniesController::class)->group(function () {
+    Route::get('/companies', 'index')->name('companies_index');
+    Route::get('/companies/list', 'searchCompanies')->name('companies_list');
+    Route::get('/companies/create', 'createForm')->name('companies_view_create');
+    Route::get('/companies/{id}', 'editForm')->name('companies_view_edit');
+
+    // POST
+    Route::post('/companies', 'create')->name('companies_post');
+    Route::post('/companies/{id}', 'update')->name('companies_put');
+});
+//*****************************************
+
+//*****************************************
 //Route for PANEL
 Route::controller(PanelController::class)->group(function () {
     Route::get('/panel', 'index')->name('panel_index');
-    Route::get('/panel/list', 'searchBuildingInfos')->name('list_panel');
+    Route::get('/panel/list', 'searchBuildingInfos')->name('panel_list');
 });
 //*****************************************
 
@@ -56,13 +71,13 @@ Route::controller(PanelController::class)->group(function () {
 Route::controller(PeopleController::class)->group(function () {
     // GET
     Route::get('/people', 'index')->name('people_index');
-    Route::get('/people/list', 'searchPeople')->name('list_people');
-    Route::get('/people/create', 'createForm')->name('view_create_people');
-    Route::get('/people/{id}', 'editForm')->name('view_edit_people');
+    Route::get('/people/list', 'searchPeople')->name('people_list');
+    Route::get('/people/create', 'createForm')->name('people_view_create');
+    Route::get('/people/{id}', 'editForm')->name('people_view_edit');
 
     // POST
-    Route::post('/people', 'create')->name('post_person');
-    Route::post('/people/{id}', 'update')->name('put_person');
+    Route::post('/people', 'create')->name('people_post');
+    Route::post('/people/{id}', 'update')->name('people_put');
 });
 //*****************************************
 
@@ -71,12 +86,12 @@ Route::controller(PeopleController::class)->group(function () {
 Route::controller(TagsController::class)->group(function () {
     // GET
     Route::get('/tags','index')->name('tags_index');
-    Route::get('/tags/list', 'searchTags')->name('list_tags');
-    Route::get('/tags/create', 'createForm')->name('view_create_tags');
-    Route::get('/tags/{id}', 'editForm')->name('view_edit_tags');
+    Route::get('/tags/list', 'searchTags')->name('tags_list');
+    Route::get('/tags/create', 'createForm')->name('tags_view_create');
+    Route::get('/tags/{id}', 'editForm')->name('tags_view_edit');
 
     // POST
-    Route::post('/tags', 'create')->name('post_tag');
-    Route::post('/tags/{id}', 'update')->name('put_tag');
+    Route::post('/tags', 'create')->name('tags_post');
+    Route::post('/tags/{id}', 'update')->name('tags_put');
 });
 //*****************************************

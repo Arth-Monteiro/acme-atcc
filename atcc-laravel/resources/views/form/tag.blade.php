@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body w-50 d-flex flex-column m-auto">
-                        <form method="{{ 'POST' }}" action="{{ isset($tag) ? route('put_tag', ['id' => $tag->id]) : route('post_tag') }}">
+                        <form method="{{ 'POST' }}" action="{{ isset($tag) ? route('tags_put', ['id' => $tag->id]) : route('tags_post') }}">
                             @csrf
 
                             <div class="d-flex flex-row" >

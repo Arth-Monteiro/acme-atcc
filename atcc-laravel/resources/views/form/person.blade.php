@@ -35,7 +35,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body p-lg-5">
-                        <form method={{ 'POST' }} action="{{  isset($person) ? route('put_person', ['id' => $person->id]) : route('post_person') }}">
+                        <form method={{ 'POST' }} action="{{  isset($person) ? route('people_put', ['id' => $person->id]) : route('people_post') }}">
                             @csrf
                             <div class="d-flex justify-content-between">
                                 <div class="input-register">

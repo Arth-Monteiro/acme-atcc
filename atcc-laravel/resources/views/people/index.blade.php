@@ -9,7 +9,7 @@
     <div class="container w-75 d-flex flex-column gap-lg-5">
         <div class="d-flex align-items-center justify-content-between">
             <input id="code" type="text" class="form-control w-25 cpf" name="cpf" autofocus placeholder="Procurar pelo CPF...">
-            <a class="register-button" href="{{ route('view_create_person') }}">{{ __('Register Person') }}</a>
+            <a class="register-button" href="{{ route('people_view_create') }}">{{ __('Register Person') }}</a>
         </div>
 
         <div class="infinite-scroll">

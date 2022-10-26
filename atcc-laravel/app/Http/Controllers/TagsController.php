@@ -66,7 +66,7 @@ class TagsController extends Controller
             return view('form.tag', ['tag' => $tag]);
         }
 
-        return redirect(route('view_create_tags'));
+        return redirect(route('tags_view_create'));
     }
 
     /**

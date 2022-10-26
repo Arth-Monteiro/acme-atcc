@@ -8,8 +8,8 @@
 @section('content')
     <div class="container w-75 d-flex flex-column gap-lg-5">
         <div class="d-flex align-items-center justify-content-between">
-            <input id="code" type="text" class="form-control w-25" name="code" autofocus placeholder="Search by CODE...">
-            <a class="register-button" href="{{ route('tags_view_create') }}">{{ __('Register Tag') }}</a>
+            <input id="code" type="text" class="form-control w-25 cnpj" name="cnpj" autofocus placeholder="Procurar pelo CNPJ...">
+            <a class="register-button" href="{{ route('people_view_create') }}">{{ __('Register Company') }}</a>
         </div>
 
         <div class="infinite-scroll">
@@ -18,5 +18,3 @@
         </div>
     </div>
 @endsection
-
-

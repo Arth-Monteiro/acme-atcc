@@ -29,8 +29,6 @@ class PeopleController extends Controller
      */
     public function index(): Renderable
     {
-//        $people = People::all(['id', 'firstname', 'lastname', 'cpf', 'qualification']);
-//        return view('people', ['people' => $people]);
         return view('people.index');
     }
 
@@ -83,7 +81,7 @@ class PeopleController extends Controller
             return view('form.person', ['person' => $person, 'tags' => $tags]);
         }
 
-        return redirect(route('view_create_people'));
+        return redirect(route('people_view_create'));
     }
 
     /**

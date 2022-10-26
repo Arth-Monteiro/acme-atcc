@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Roles;
 use Closure;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -16,9 +17,9 @@ class RoleAndPermissions
      *
      * @param Request $request
      * @param Closure(Request): (RedirectResponse)  $next
-     * @return RedirectResponse|Response
+     * @return RedirectResponse|Response|JsonResponse
      */
-    public function handle(Request $request, Closure $next): RedirectResponse | Response
+    public function handle(Request $request, Closure $next): RedirectResponse | Response | JsonResponse
     {
         $role_permissions = Roles::find(Auth::user()->role_id)->permissions;
         foreach ($role_permissions as $permission) {

@@ -54,8 +54,15 @@ class RolesController extends Controller
         $role = Roles::find($id);
 
         if ($role) {
+            $permissions = [];
+            foreach ($role->permissions as $permission) {
+                $path = explode('_', $permission)[0];
+                if (!isset($permissions[$path])) {
+                    $permissions[$path] = (str_contains($permission, '*') ?  'editor' : 'viewer');
 
-            return view('form.role', ['role' => $role]);
+                }
+            }
+            return view('form.role', ['role' => $role, 'permissions' => $permissions]);
         }
 
         return redirect(route('roles_view_create'));
@@ -71,6 +78,37 @@ class RolesController extends Controller
      */
     public function create(Request $request): RedirectResponse
     {
+        $request = $this->extractPermissionValue($request);
+
+        if ($request->validate(Roles::validator())) {
+            Roles::create($request->all());
+            return redirect(route('roles_index'));
+        }
+    }
+
+    /**
+     * Update a user instance after a valid registration.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(Request $request): RedirectResponse
+    {
+        $id = $request->id;
+        $request = $this->extractPermissionValue($request);
+
+        $validators = Roles::validator();
+        array_pop($validators['code']);
+
+        if (isset($id) && is_numeric($id) && $request->validate($validators)) {
+            $role = Roles::find($id);
+            $role->update($request->all());
+            return redirect(route('roles_index'));
+        }
+    }
+
+    protected function extractPermissionValue(Request $request): Request
+    {
         $post = $request->post();
         $permissions = [];
         foreach ($post as $key => $value) {
@@ -81,7 +119,7 @@ class RolesController extends Controller
                         array_push($permissions, "{$path}_*");
                         break;
                     case 'viewer':
-                        array_push($permissions, ["{$path}_index", "list_$path", "view_edit_$path",]);
+                        array_push($permissions, "{$path}_index", "{$path}_list", "{$path}_view_edit",);
                         break;
                 }
             }
@@ -91,9 +129,7 @@ class RolesController extends Controller
             'permissions' => $permissions
         ]);
 
-        if ($request->validate(Roles::validator())) {
-            Roles::create($request->all());
-            return redirect(route('roles_index'));
-        }
+        return $request;
     }
+
 }

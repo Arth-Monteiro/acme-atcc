@@ -138,9 +138,9 @@
                                     <div class="options" id="{{ $path }}">
                                         <div class="option option-title">{{ ucfirst($path) }}</div>
                                         <div class="d-flex justify-content-between gap-2">
-{{--                                            <span class="option {{ ( $path ?? old($path)) === $status ? "selected" : "" }}">Editor</span>--}}
-                                            <span class="option">Viewer</span>
-                                            <span class="option selected">None</span>
+                                            <span class="option {{ ($permissions[$path] ?? old("permission-$path")) === "editor" ? 'selected' : '' }}">Editor</span>
+                                            <span class="option {{ ($permissions[$path] ?? old("permission-$path")) === "viewer" ? 'selected' : '' }}">Viewer</span>
+                                            <span class="option {{ !in_array(($permissions[$path] ?? old("permission-$path")), [ "editor", "viewer"]) ? 'selected' : '' }}">None</span>
                                         </div>
                                     </div>
                                 @endforeach
@@ -149,7 +149,7 @@
 
                             <div class="row mb-0 mt-3">
                                 <div class="d-flex justify-content-end" style="column-gap: 10px">
-                                    @if (isset($tag))
+                                    @if (isset($role))
                                         <button class="btn red">
                                             {{ __('Remove') }}
                                         </button>
