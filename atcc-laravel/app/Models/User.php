@@ -56,7 +56,7 @@ class User extends Authenticatable
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role_id' => ['required', 'integer', 'exists:roles,id'],
-            'company_id' => ['sometimes|required', 'integer', 'exists:companies,id'],
+            'company_id' => ['sometimes', 'required', 'integer', 'exists:companies,id'],
         ];
     }
 

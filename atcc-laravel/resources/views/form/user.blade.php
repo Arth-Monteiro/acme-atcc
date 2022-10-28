@@ -77,7 +77,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="row mb-3">
+                                        @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
+
+                                            <div class="row mb-3">
                                             <label for="password" class="col-form-label">{{ __('Password') }}</label>
 
                                             <div>
@@ -96,7 +98,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row mb-3">
+                                            <div class="row mb-3">
                                             <label for="password-confirm" class="col-form-label">{{ __('Confirm Password') }}</label>
 
                                             <div>
@@ -109,7 +111,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row mb-3">
+                                            <div class="row mb-3">
                                             <label for="role_id" class="col-form-label">{{ __('Role') }}</label>
 
                                             <div>
@@ -132,6 +134,8 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        @endif
 
                                         @if(Auth::user()->getRole('code') === 'super_admin')
                                             <div class="row mb-3">
@@ -159,11 +163,11 @@
                                             </div>
                                         @endif
 
+                                        </div>
                                     </div>
-                                </div>
 
-
-                                <div class="row mt-lg-3 mb-0">
+                                @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
+                                    <div class="row mt-lg-3 mb-0">
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($user))
                                             <button id="delete" type="button" class="btn" style="background-color: red;">
@@ -175,6 +179,7 @@
                                         </button>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </form>
                     </div>

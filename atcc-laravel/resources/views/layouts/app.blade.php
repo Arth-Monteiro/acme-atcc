@@ -99,8 +99,10 @@
 
                                     {{-- TODO: CREATE ROUTES--}}
                                     @if(in_array($role = Auth::user()->getRole('code'), [ 'super_admin', 'admin', ]))
-                                        <a class="dropdown-item" href="{{ route('roles_index') }}">{{ __('Roles') }}</a>
-                                        <a class="dropdown-item" href="{{ route('companies_index') }}">{{ __('Companies') }}</a>
+                                        @if($role === 'super_admin')
+                                            <a class="dropdown-item" href="{{ route('roles_index') }}">{{ __('Roles') }}</a>
+                                            <a class="dropdown-item" href="{{ route('companies_index') }}">{{ __('Companies') }}</a>
+                                        @endif
                                         <a class="dropdown-item" href="{{ route('users_index') }}">{{ __('Users') }}</a>
                                     @endif
 
