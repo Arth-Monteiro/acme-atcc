@@ -32,7 +32,7 @@ class PeopleController extends Controller
         return view('people.index');
     }
 
-    public function searchPeople(Request $request): JsonResponse
+    public function searchPeople(): JsonResponse
     {
         $people = People::orderBy('id')->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf']);
 

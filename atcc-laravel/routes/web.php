@@ -6,6 +6,7 @@ use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,23 @@ Route::controller(CompaniesController::class)->group(function () {
 
     // DELETE
     Route::delete('/companies/{id}', 'delete')->name('companies_delete');
+});
+//*****************************************
+
+//*****************************************
+//Route for COMPANIES
+Route::controller(UsersController::class)->group(function () {
+    Route::get('/users', 'index')->name('users_index');
+    Route::get('/users/list', 'searchUsers')->name('users_list');
+    Route::get('/users/create', 'createForm')->name('users_view_create');
+    Route::get('/users/{id}', 'editForm')->name('users_view_edit');
+
+    // POST
+    Route::post('/users', 'create')->name('users_post');
+    Route::post('/users/{id}', 'update')->name('users_put');
+
+    // DELETE
+    Route::delete('/users/{id}', 'delete')->name('users_delete');
 });
 //*****************************************
 

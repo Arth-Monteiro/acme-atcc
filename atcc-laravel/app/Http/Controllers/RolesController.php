@@ -44,7 +44,8 @@ class RolesController extends Controller
     /**
      * Show the form to edit person.
      *
-     * @return Renderable
+     * @param int $id
+     * @return Renderable|RedirectResponse
      */
     public function editForm(int $id): Renderable | RedirectResponse
     {

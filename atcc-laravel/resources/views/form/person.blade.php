@@ -256,7 +256,7 @@
                                         <div>
                                             <select
                                                 id="tag_id"
-                                                class="form-control @error('blood_type') is-invalid @enderror"
+                                                class="form-control @error('tag_id') is-invalid @enderror"
                                                 name="tag_id">
 
                                                 <option value="" disabled selected></option>

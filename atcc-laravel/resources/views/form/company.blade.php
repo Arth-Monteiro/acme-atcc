@@ -6,7 +6,7 @@
     <script>
         $(document).ready(function() {
             const cnpj = $('#cnpj');
-            cnpj.mask('000.000.000/0000-00', {reverse: true});
+            cnpj.mask('00.000.000/0000-00', {reverse: true});
 
         })
     </script>
@@ -35,8 +35,8 @@
                             @csrf
                             <div class="input-container">
                                 <div class="d-flex justify-content-center">
-                                <div class="input-register">
-                                    <div class="row mb-3">
+                                    <div class="input-register">
+                                        <div class="row mb-3">
                                         <label for="cnpj" class="col-form-label">{{ __('CNPJ') }}</label>
 
                                         <div>
@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                        <div class="row mb-3">
                                         <label for="name" class="col-form-label">{{ __('Name') }}</label>
 
                                         <div>
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                        <div class="row mb-3">
                                         <label for="fantasy_name" class="col-form-label">{{ __('Fantasy Name') }}</label>
 
                                         <div>
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                        <div class="row mb-3">
                                         <label for="contact_email" class="col-form-label">{{ __('Contact Email') }}</label>
 
                                         <div>
@@ -114,8 +114,8 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
-                            </div>
 
 
                                 <div class="row mt-lg-3 mb-0">

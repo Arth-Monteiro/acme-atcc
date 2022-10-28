@@ -1,5 +1,5 @@
 <div class="card card-link" onclick="window.location='{{ route('companies_view_edit', ['id' => $company->id] ) }}'">
-    <div class="card-header cnpj {{ $company->status === 'Active' ? 'green' : 'red' }}">
+    <div class="card-header cnpj">
         {{ $company->cnpj }}
     </div>
     <div class="card-body">

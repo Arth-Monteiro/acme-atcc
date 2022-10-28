@@ -66,12 +66,6 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('panel_index') }}">{{ __('Panel') }}</a>
@@ -93,18 +87,21 @@
 
                                 <div class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="navbarDropdown">
 
-                                    <div class="d-flex justify-content-evenly pt-2 pb-2 ps-2 pe-2 border-bottom fw-bold">
-                                        <p>{{ Auth::user()->name }}</p>
-                                        @if(in_array($role = Auth::user()->getRole('code'), [ 'super_admin', 'admin', ]))
-                                            <i class="fas fa-solid fa-star" style="color: {{$role === 'super_admin' ? 'blue' : 'gray'}}; font-size: 1.3em;"></i>
-                                        @endif
-                                    </div>
+                                    <a class="dropdown-item" href="{{ route('users_view_edit', ['id' => Auth::user()->id ]) }}">
+                                        <div class="d-flex justify-content-evenly gap-2 pt-2 pb-2 ps-2 pe-2 border-bottom fw-bold">
+                                                <p>{{ Auth::user()->name }}</p>
+                                                @if(in_array($role = Auth::user()->getRole('code'), [ 'super_admin', 'admin', ]))
+                                                    <i class="fas fa-solid fa-star" style="color: {{$role === 'super_admin' ? 'blue' : 'gray'}}; font-size: 1.3em;"></i>
+                                                @endif
+                                        </div>
+                                    </a>
+
 
                                     {{-- TODO: CREATE ROUTES--}}
                                     @if(in_array($role = Auth::user()->getRole('code'), [ 'super_admin', 'admin', ]))
                                         <a class="dropdown-item" href="{{ route('roles_index') }}">{{ __('Roles') }}</a>
                                         <a class="dropdown-item" href="{{ route('companies_index') }}">{{ __('Companies') }}</a>
-                                        <a class="dropdown-item" href="{{''}}">{{ __('Users') }}</a>
+                                        <a class="dropdown-item" href="{{ route('users_index') }}">{{ __('Users') }}</a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
