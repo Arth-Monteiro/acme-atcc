@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class Floors extends Model
 {
@@ -25,11 +26,13 @@ class Floors extends Model
      *
      * @return array
      */
-    public static function validator(): array
+    public static function validator($request): array
     {
         return [
             'name' => ['required', 'string', 'max:50'],
-            'order' => ['required', 'integer'],
+            'order' => ['required', 'integer',  Rule::unique('floors', 'order')->where(function($query) use ($request){
+                return $query->where('building_id', $request->building_id);
+            })->ignore($request->id)],
             'building_id' => ['required', 'integer', 'exists:buildings,id'],
         ];
     }

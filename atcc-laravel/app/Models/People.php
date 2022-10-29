@@ -32,6 +32,7 @@ class People extends Model
         'tag_id',
         'insert_by',
         'update_by',
+        'company_id'
     ];
 
     /**
@@ -39,20 +40,26 @@ class People extends Model
      *
      * @return array
      */
-    public static function validator(): array
+    public static function validator($request): array
     {
         return [
             'firstname' => ['required', 'string', 'max:15'],
             'lastname' => ['required', 'string', 'max:32'],
-            'cpf' => ['required', 'string', 'min:11', 'max:11', 'unique:people,cpf'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:people,email'],
+            'cpf' => ['required', 'string', 'min:11', 'max:11',
+                Rule::unique('people', 'cpf')->where(function($query) use ($request){
+                    return $query->where('company_id', $request->company_id);
+                })->ignore($request->id)],
+            'email' => ['required', 'string', 'email', 'max:255',
+                Rule::unique('people', 'email')->where(function($query) use ($request){
+                    return $query->where('company_id', $request->company_id);
+                })->ignore($request->id)],
             'cellphone' => ['required', 'string', 'max:15'],
             'blood_type' => ['required', Rule::in(self::BLOOD_TYPES)],
             'emergency_contact' => ['required', 'string', 'max:15'],
             'company' => ['string', 'max:64'],
             'job_title' => ['string', 'max:20'],
             'qualification' => ['required', Rule::in(self::QUALIFICATION)],
-            'tag_id' => ['required', 'integer', 'unique:people,tag_id', 'exists:tags,id'],
+            'company_id' => ['sometimes', 'required', 'integer', 'exists:companies,id'],
         ];
     }
 }

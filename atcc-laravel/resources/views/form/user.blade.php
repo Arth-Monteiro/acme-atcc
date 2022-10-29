@@ -77,7 +77,7 @@
                                             </div>
                                         </div>
 
-                                        @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
+                                        @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions) || in_array('*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
 
                                             <div class="row mb-3">
                                             <label for="password" class="col-form-label">{{ __('Password') }}</label>
@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
 
-                                @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
+                                @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions) || in_array('*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
                                     <div class="row mt-lg-3 mb-0">
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($user))

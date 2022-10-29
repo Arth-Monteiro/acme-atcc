@@ -102,6 +102,7 @@
                                         @if($role === 'super_admin')
                                             <a class="dropdown-item" href="{{ route('roles_index') }}">{{ __('Roles') }}</a>
                                             <a class="dropdown-item" href="{{ route('companies_index') }}">{{ __('Companies') }}</a>
+                                            <a class="dropdown-item" href="{{ route('buildings_index') }}">{{ __('Building') }}</a>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('users_index') }}">{{ __('Users') }}</a>
                                     @endif

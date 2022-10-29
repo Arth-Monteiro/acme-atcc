@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
+use App\Models\Companies;
 use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TagsController extends Controller
 {
@@ -33,7 +34,13 @@ class TagsController extends Controller
 
     public function searchTags(Request $request): JsonResponse
     {
-        $tags = Tags::orderBy('id')->paginate(15, ['id', 'code', 'status', 'sub_status', 'access_level']);
+        $tags = Tags::orderBy('id');
+
+        if (!!($company_id = Auth::user()->company_id)) {
+            $tags = $tags->where(['company_id' => $company_id]);
+        }
+
+        $tags = $tags->paginate(15, ['id', 'code', 'status', 'sub_status', 'access_level']);
 
         $html = '';
         foreach ($tags as $tag) {
@@ -50,7 +57,8 @@ class TagsController extends Controller
      */
     public function createForm(): Renderable
     {
-        return view('form.tag');
+        $companies = $this->getCompaniesPerUser();
+        return view('form.tag', compact('companies'));
     }
 
     /**
@@ -62,12 +70,24 @@ class TagsController extends Controller
     public function editForm(int $id): Renderable | RedirectResponse
     {
         $tag = Tags::find($id);
+        $companies = $this->getCompaniesPerUser();
 
         if ($tag) {
-            return view('form.tag', ['tag' => $tag]);
+            return view('form.tag', ['tag' => $tag, 'companies' => $companies]);
         }
 
-        return redirect(route('tags_view_create'));
+        return redirect(route('tags_view_create', compact('companies')));
+    }
+
+    protected function getCompaniesPerUser()
+    {
+        $company_id = Auth::user()->company_id;
+        $companies = [];
+        if (!isset($company_id)) {
+            $companies = Companies::orderBy('fantasy_name')->get(['id', 'fantasy_name']);
+        }
+
+        return $companies;
     }
 
     /**
@@ -78,6 +98,12 @@ class TagsController extends Controller
      */
     public function create(Request $request): RedirectResponse
     {
+        if (!isset($request->company_id)) {
+            $request->merge([
+                'company_id' => Auth::user()->company_id,
+            ]);
+        }
+
         if ($request->validate(Tags::validator())) {
 
             Tags::create($request->all());

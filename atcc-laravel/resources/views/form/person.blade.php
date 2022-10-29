@@ -250,30 +250,31 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
-                                        <label for="tag_id" class="col-form-label">{{ __('Tag Id') }}</label>
+                                    @if(Auth::user()->getRole('code') === 'super_admin')
+                                        <div class="row mb-3">
+                                        <label for="company_id" class="col-form-label">{{ __('Company') }}</label>
 
                                         <div>
                                             <select
-                                                id="tag_id"
-                                                class="form-control @error('tag_id') is-invalid @enderror"
-                                                name="tag_id">
+                                                id="company_id"
+                                                class="form-control @error('company_id') is-invalid @enderror"
+                                                name="company_id">
 
                                                 <option value="" disabled selected></option>
-                                                @foreach($tags as $tag)
-                                                    <option value="{{ $tag->id }}" {{ ($person->tag_id ?? old('tag_id')) === $tag->id ? "selected" : "" }}>{{ $tag->code }}</option>
+                                                @foreach($companies as $company)
+                                                    <option value="{{ $company->id }}" {{ ($person->company_id ?? old('company_id')) === $company->id ? "selected" : "" }}>{{ $company->fantasy_name }}</option>
                                                 @endforeach
 
                                             </select>
 
-                                            @error('tag_id')
+                                            @error('company_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
                                         </div>
                                     </div>
-
+                                    @endif
                                 </div>
                             </div>
 

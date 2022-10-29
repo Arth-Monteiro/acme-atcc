@@ -10,7 +10,7 @@ class Roles extends Model
 {
     use HasFactory;
 
-    const PATHS = ['roles', 'companies', 'users', 'people', 'tags', 'panel', 'dashboards',];
+    const PATHS = ['roles', 'companies', 'users', 'people', 'tags', 'panel', 'dashboards', 'buildings'];
 
     /**
      * The attributes that are mass assignable.

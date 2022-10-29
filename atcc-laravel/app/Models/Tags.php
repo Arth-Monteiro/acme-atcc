@@ -18,7 +18,8 @@ class Tags extends Model
         'code',
         'status',
         'sub_status',
-        'access_level'
+        'access_level',
+        'company_id',
     ];
 
     /**
@@ -33,6 +34,7 @@ class Tags extends Model
             'status' => ['required', Rule::in(self::STATUS)],
             'sub_status' => ['required', Rule::in(self::SUB_STATUS)],
             'access_level' => ['required', Rule::in(self::ACCESS_LEVEL)],
+            'company_id' => ['sometimes', 'required', 'integer', 'exists:companies,id'],
         ];
     }
 }

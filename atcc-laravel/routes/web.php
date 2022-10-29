@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuildingsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PeopleController;
@@ -61,6 +62,56 @@ Route::controller(CompaniesController::class)->group(function () {
 
     // DELETE
     Route::delete('/companies/{id}', 'delete')->name('companies_delete');
+});
+//*****************************************
+
+//*****************************************
+//Route for BUILDINGS
+Route::controller(BuildingsController::class)->group(function () {
+    Route::get('/buildings', 'index')->name('buildings_index');
+    Route::get('/buildings/list', 'searchBuildings')->name('buildings_list');
+    Route::get('/buildings/create', 'createBuildingForm')->name('buildings_view_create');
+    Route::get('/buildings/{id}', 'editBuildingForm')->name('buildings_view_edit');
+
+    // POST
+    Route::post('/buildings', 'createBuilding')->name('buildings_post');
+    Route::post('/buildings/{id}', 'updateBuilding')->name('buildings_put');
+
+    // DELETE
+    Route::delete('/buildings/{id}', 'deleteBuilding')->name('buildings_delete');
+
+
+    //*****************************************
+    //Route for FLOORS
+    $floor_base = '/buildings/{building_id}/floors';
+    Route::get($floor_base, 'floorsIndex')->name('floors_index');
+    Route::get("$floor_base/list", 'searchFloors')->name('floors_list');
+    Route::get("$floor_base/create", 'createFloorForm')->name('floors_view_create');
+    Route::get("$floor_base/{id}", 'editFloorForm')->name('floors_view_edit');
+
+    // POST
+    Route::post($floor_base, 'createFloor')->name('floors_post');
+    Route::post("$floor_base/{id}", 'updateFloor')->name('floors_put');
+
+    // DELETE
+    Route::delete("$floor_base/{id}", 'deleteFloor')->name('floors_delete');
+    //*****************************************
+
+    //*****************************************
+    //Route for ROOMS
+    $room_base = '/buildings/{building_id}/floors/{floor_id}/rooms';
+    Route::get($room_base, 'roomsIndex')->name('rooms_index');
+    Route::get("$room_base/list", 'searchRooms')->name('rooms_list');
+    Route::get("$room_base/create", 'createRoomForm')->name('rooms_view_create');
+    Route::get("$room_base/{id}", 'editRoomForm')->name('rooms_view_edit');
+
+    // POST
+    Route::post($room_base, 'createRoom')->name('rooms_post');
+    Route::post("$room_base/{id}", 'updateRoom')->name('rooms_put');
+
+    // DELETE
+    Route::delete("$room_base/{id}", 'deleteRoom')->name('rooms_delete');
+    //*****************************************
 });
 //*****************************************
 

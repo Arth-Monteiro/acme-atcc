@@ -12,6 +12,7 @@
                             @csrf
 
                             <div class="d-flex flex-row" >
+
                                 <div class="mb-3 flex-grow-1">
                                     <label for="code" class="col-form-label">{{ __('Code') }}</label>
 
@@ -56,7 +57,6 @@
 
                                     </div>
                                 </div>
-
 
                             </div>
 
@@ -115,6 +115,30 @@
                                 </div>
                             </div>
 
+                            @if(isset($companies) && !empty($companies))
+                                <div class="mb-3">
+                                <label for="company_id" class="col-form-label"><?php echo e(__('Company')); ?></label>
+
+                                <select
+                                    id="company_id"
+                                    class="form-control @error('company_id') is-invalid @enderror"
+                                    name="company_id">
+
+                                    <option value="" disabled selected></option>
+                                    @foreach($companies as $company)
+                                        <option value="{{ $company->id }}" {{ ($tag->company_id ?? old('company_id')) === $company->id ? "selected" : "" }}>{{ $company->fantasy_name }}</option>
+                                    @endforeach
+
+                                </select>
+
+                                @error('company_id')
+                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                @enderror
+                            </div>
+                            @endif
+
                             <div class="row mb-0">
                                 <div class="d-flex justify-content-end" style="column-gap: 10px">
                                     @if (isset($tag))
@@ -127,6 +151,7 @@
                                     </button>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>

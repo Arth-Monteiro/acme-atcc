@@ -62,9 +62,9 @@ class UsersController extends Controller
     public function editForm(int $id): Renderable | RedirectResponse
     {
         $user = User::find($id);
+        [$roles, $companies] = $this->getRolesAndCompanies();
 
         if ($user) {
-            [$roles, $companies] = $this->getRolesAndCompanies();
             return view('form.user', [
                 'user' => $user,
                 'companies' => $companies,
@@ -72,7 +72,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return redirect(route('users_view_create'));
+        return redirect(route('users_view_create', compact('companies'), compact('roles')));
     }
 
     protected function getRolesAndCompanies(): array

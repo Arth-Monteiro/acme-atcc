@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Companies;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BuildingsFactory extends Factory
@@ -13,8 +14,10 @@ class BuildingsFactory extends Factory
      */
     public function definition()
     {
+
         return [
             'name' => 'Bd. ' . $this->faker->name(),
+            'company_id' => Companies::inRandomOrder()->first(['id']),
         ];
     }
 }

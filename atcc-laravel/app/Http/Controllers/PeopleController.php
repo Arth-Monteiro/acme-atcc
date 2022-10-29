@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buildings;
+use App\Models\Companies;
 use App\Models\People;
 use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
@@ -34,7 +36,11 @@ class PeopleController extends Controller
 
     public function searchPeople(): JsonResponse
     {
-        $people = People::orderBy('id')->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf']);
+        $company_id = Auth::user()->company_id;
+        $where = isset($company_id) ? ['company_id' => $company_id] : [];
+        $people = People::where($where)
+            ->orderBy('id')
+            ->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf']);
 
         $html = '';
         foreach ($people as $person) {
@@ -51,37 +57,35 @@ class PeopleController extends Controller
      */
     public function createForm(): Renderable
     {
-        $tags = Tags::where([
-            'status' => 'Active',
-            'sub_status' => 'Available'
-        ])->get(['id', 'code']);
-
-        return view('form.person', ['tags' => $tags]);
+        $companies = $this->getCompaniesPerUser();
+        return view('form.person', compact('companies'));
     }
 
     /**
      * Show the form to edit person.
      *
-     * @return Renderable
+     * @param int $id
+     * @return Renderable|RedirectResponse
      */
     public function editForm(int $id): Renderable | RedirectResponse
     {
         $person = People::find($id);
+        $companies = $this->getCompaniesPerUser();
 
         if ($person) {
-
-            $tags = Tags::where([
-                'status' => 'Active',
-                'sub_status' => 'Available'
-            ])
-                ->orWhere('id', $person->tag_id)
-                ->orderBy('code')
-                ->get(['id', 'code']);
-
-            return view('form.person', ['person' => $person, 'tags' => $tags]);
+            return view('form.person', ['person' => $person, 'companies' => $companies]);
         }
 
-        return redirect(route('people_view_create'));
+        return redirect(route('people_view_create', compact('companies')));
+    }
+
+    protected function getCompaniesPerUser()
+    {
+        $companies = [];
+        if (!(Auth::user()->company_id)) {
+            $companies = Companies::orderBy('fantasy_name')->get(['id', 'fantasy_name']);
+        }
+        return $companies;
     }
 
     /**
@@ -92,15 +96,17 @@ class PeopleController extends Controller
      */
     public function create(Request $request): RedirectResponse
     {
-        if ($request->validate(People::validator())) {
-            $person = People::create($request->all() + [
+        if (!isset($request->company_id)) {
+            $request->merge([
+                'company_id' => Auth::user()->company_id,
+            ]);
+        }
+
+        if ($request->validate(People::validator($request))) {
+            People::create($request->all() + [
                 'insert_by' => Auth::user()->name,
                 'update_by' => Auth::user()->name,
             ]);
-
-            $tag = Tags::find($person->tag_id);
-            $tag->sub_status = 'In use';
-            $tag->save();
 
             return redirect(route('people_index'));
         }
@@ -116,10 +122,7 @@ class PeopleController extends Controller
     {
         $id = $request->id;
 
-        $validators = People::validator();
-        array_pop($validators['tag_id']);
-        array_pop($validators['email']);
-        array_pop($validators['cpf']);
+        $validators = People::validator($request);
 
         if (isset($id) && is_numeric($id) && $request->validate($validators)) {
 

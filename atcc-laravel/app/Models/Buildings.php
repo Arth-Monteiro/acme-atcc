@@ -16,6 +16,7 @@ class Buildings extends Model
      */
     protected $fillable = [
         'name',
+        'company_id',
     ];
 
     /**
@@ -27,6 +28,7 @@ class Buildings extends Model
     {
         return [
             'name' => ['required', 'string', 'max:50'],
+            'company_id' => ['required', 'integer', 'exists:companies,id'],
         ];
     }
 
