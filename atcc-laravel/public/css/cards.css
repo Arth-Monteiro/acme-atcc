@@ -24,11 +24,15 @@
     text-align: center;
 }
 
+.card-header.link:hover {
+    background-color: #c7c7c7;
+}
+
 .card-link {
     cursor: pointer;
 }
 
-.card-link:hover {
+.card-body:hover {
     background-color: #ccc;
 }
 

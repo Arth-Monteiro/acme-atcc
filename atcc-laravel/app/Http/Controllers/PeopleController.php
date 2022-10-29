@@ -21,7 +21,7 @@ class PeopleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'role.permission']);
     }
 
     /**
@@ -40,7 +40,7 @@ class PeopleController extends Controller
         $where = isset($company_id) ? ['company_id' => $company_id] : [];
         $people = People::where($where)
             ->orderBy('id')
-            ->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf']);
+            ->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf', 'tag_id']);
 
         $html = '';
         foreach ($people as $person) {
@@ -77,6 +77,59 @@ class PeopleController extends Controller
         }
 
         return redirect(route('people_view_create', compact('companies')));
+    }
+
+    public function setViewTagForPerson(int $people_id, int $tag_id)
+    {
+        $person = People::find($people_id);
+
+        if ($person) {
+            $company_id = Auth::user()->company_id;
+            $where = isset($company_id) ? ['company_id' => $company_id] : [];
+            $tags = Tags::where(['status' => 'Active', 'sub_status' => 'Available', 'company_id' => $person->company_id] + $where    )
+                ->orWhere(['id' => $person->tag_id])
+                ->orderBy('code')
+                ->get(['id', 'code']);
+
+            return view('form.persontag', [
+                'people_id' => $people_id,
+                'tag_id' => $tag_id,
+                'tags' => $tags,
+            ]);
+
+        }
+
+        $companies = $this->getCompaniesPerUser();
+        return redirect(route('people_view_create', compact('companies')));
+    }
+
+    public function setTagForPerson(Request $request)
+    {
+        $tag_id = $request->tag_id;
+
+        $tag = Tags::find($tag_id);
+        $person = People::find($request->people_id);
+        if ($tag->company_id === $person->company_id && (
+            ($tag->company_id === Auth::user()->company_id) || (!isset(Auth::user()->company_id)) ) ) {
+            if ($person->tag_id !== $tag_id && isset($person->tag_id)) {
+                Tags::find($person->tag_id)->update(['sub_status' => 'Available']);
+            }
+            $person->update(['tag_id' => $tag->id]);
+            $tag->update(['sub_status' => 'In use']);
+            return redirect(route('people_index'));
+        }
+    }
+
+    public function removeTagForPerson(Request $request)
+    {
+        $tag = Tags::find($request->tag_id);
+        $person = People::find($request->people_id);
+        if ($tag->company_id === $person->company_id && (
+                ($tag->company_id === Auth::user()->company_id) || (!isset(Auth::user()->company_id)) ) ) {
+            $person->update(['tag_id' => null]);
+            $tag->update(['sub_status' => 'Available']);
+            return response()->json(['location' => route('people_index')]);
+        }
     }
 
     protected function getCompaniesPerUser()

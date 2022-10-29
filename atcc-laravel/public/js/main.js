@@ -5,6 +5,7 @@ removeMask = function(value) {
 $(document).ready(function() {
     $('#delete').on('click', function(evt) {
         evt.preventDefault();
+        console.log(window.location.pathname)
         if (confirm('Are you sure to delete this item')) {
             $.ajax({
                 type: 'DELETE',

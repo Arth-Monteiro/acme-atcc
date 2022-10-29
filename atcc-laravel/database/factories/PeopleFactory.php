@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Companies;
 use App\Models\People;
 use App\Models\Tags;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -33,6 +34,7 @@ class PeopleFactory extends Factory
             'qualification' => $qualification[rand(0, count($qualification) -1)],
             'insert_by' => $name,
             'tag_id' => $this->faker->unique()->numberBetween(1, Tags::count()),
+            'company_id' => $this->faker-()->numberBetween(1, Companies::count()),
             'update_by' => $name,
         ];
     }

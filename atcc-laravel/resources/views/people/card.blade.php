@@ -1,8 +1,10 @@
-<div class="card card-link" onclick="window.location='{{ route('people_view_edit', ['id' => $person->id] ) }}'">
-    <div class="card-header cpf {{ $person->status === 'Active' ? 'green' : 'red' }}">
+<div class="card card-link">
+    <div class="card-header link cpf {{ $person->status === 'Active' ? 'green' : 'red' }}"
+         onclick="window.location='{{ route('people_view_tag', [$person->id, $person->tag_id ?? 0] ) }}'"
+    >
         {{ $person->cpf }}
     </div>
-    <div class="card-body">
+    <div class="card-body" onclick="window.location='{{ route('people_view_edit', ['id' => $person->id] ) }}'">
         <table class="table">
             <tr>
                 <th>Name</th>
