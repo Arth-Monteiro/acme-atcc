@@ -15,6 +15,9 @@
                     // url: "http://localhost:8000/tags/list?page=1&active=1",
                     url: this.url,
                     success: function (response) {
+                        response.next.data.forEach(function (item) {
+                            $('#' + item.unique).remove();
+                        });
                         item.setPage( response.next['next_page_url'] );
                         $('.card-container').append(response.html);
                     },
@@ -35,6 +38,23 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+
+        $('#search').on('click', function() {
+            $.ajax({
+                type: 'GET',
+                // url: "http://localhost:8000/tags/list?page=1&active=1",
+                url: window.location.pathname + '/list?code=' + $('#code').val(),
+                success: function (response) {
+                    response.next.data.forEach(function (item) {
+                        $('#' + item.unique).remove();
+                    });
+                    $('.card-container').append(response.html);
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        })
     })
 
     $(document).scroll(function() {

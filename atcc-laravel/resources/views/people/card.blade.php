@@ -1,5 +1,5 @@
-<div class="card card-link">
-    <div class="card-header link cpf {{ $person->status === 'Active' ? 'green' : 'red' }}"
+<div class="card card-link" id="{{ $person->unique }}">
+    <div class="card-header link cpf"
          onclick="window.location='{{ route('people_view_tag', [$person->id, $person->tag_id ?? 0] ) }}'"
     >
         {{ $person->cpf }}

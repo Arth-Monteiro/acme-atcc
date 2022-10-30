@@ -32,10 +32,17 @@ class CompaniesController extends Controller
 
     public function searchCompanies(Request $request): JsonResponse
     {
-        $companies = Companies::orderBy('id')->paginate(15, ['id', 'fantasy_name', 'contact_email', 'cnpj']);
+        $companies = Companies::orderBy('cnpj');
+
+        if ($request->code) {
+            $companies = $companies->where('cnpj', 'ilike', "%{$request->code}%")    ;
+        }
+
+        $companies = $companies->paginate(15, ['id', 'fantasy_name', 'contact_email', 'cnpj']);
 
         $html = '';
         foreach ($companies as $company) {
+            $company->unique = $company->id;
             $html .= view('companies.card', compact('company'));
         }
 

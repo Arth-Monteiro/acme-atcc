@@ -1,4 +1,4 @@
-<div class="card card-link">
+<div class="card card-link" id="{{ $building->unique }}">
     <div class="card-header" onclick="window.location='{{ route('floors_index', ['building_id' => $building->id] ) }}'">
             {{ $building->name }}
     </div>

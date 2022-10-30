@@ -6,6 +6,7 @@ use App\Models\Companies;
 use App\Models\People;
 use App\Models\Tags;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 class PeopleFactory extends Factory
 {
@@ -21,6 +22,15 @@ class PeopleFactory extends Factory
 
         $name = $this->faker->name();
 
+        $tags= DB::select(DB::raw('
+            select t.id
+            from tags t
+            left join people p on t.id = p.tag_id
+            where p.tag_id isnull
+        '));
+
+        $total_tags = count($tags);
+
         return [
             'firstname' => $this->faker->firstName(),
             'lastname' => $this->faker->lastName(),
@@ -33,8 +43,8 @@ class PeopleFactory extends Factory
             'job_title' => substr($this->faker->jobTitle(), 0, 20),
             'qualification' => $qualification[rand(0, count($qualification) -1)],
             'insert_by' => $name,
-            'tag_id' => $this->faker->unique()->numberBetween(1, Tags::count()),
-            'company_id' => $this->faker-()->numberBetween(1, Companies::count()),
+            'tag_id' => $tags[rand(0, $total_tags-1)]->id,
+            'company_id' => Companies::inRandomOrder()->first(['id']),
             'update_by' => $name,
         ];
     }

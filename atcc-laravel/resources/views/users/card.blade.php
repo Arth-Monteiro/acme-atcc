@@ -1,4 +1,4 @@
-<div class="card card-link" onclick="window.location='{{ route('users_view_edit', ['id' => $user->id] ) }}'">
+<div class="card card-link" id="{{ $user->unique }}" onclick="window.location='{{ route('users_view_edit', ['id' => $user->id] ) }}'">
     <div class="card-header {{ $user->email === Auth::user()->email ? 'green' : ''}}">
         {{ $user->name }}
     </div>

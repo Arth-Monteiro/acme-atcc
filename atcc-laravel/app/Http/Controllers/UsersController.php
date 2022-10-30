@@ -29,14 +29,19 @@ class UsersController extends Controller
         return view('users.index');
     }
 
-    public function searchUsers(): JsonResponse
+    public function searchUsers(Request $request): JsonResponse
     {
         $company_id = Auth::user()->company_id;
         $where = isset($company_id) ? ['company_id' => $company_id] : [];
-        $users = User::where($where)->orderBy('id')->paginate(15, ['id', 'name', 'email']);
+        $users = User::where($where);
+        if ($request->code) {
+            $users = $users->where('name', 'ilike', "%{$request->code}%");
+        }
+        $users = $users->orderBy('name')->paginate(15, ['id', 'name', 'email']);
 
         $html = '';
         foreach ($users as $user) {
+            $user->unique = $user->id . $user->name;
             $html .= view('users.card', compact('user'));
         }
 

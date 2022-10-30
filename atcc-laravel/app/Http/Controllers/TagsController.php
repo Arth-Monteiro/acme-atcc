@@ -40,10 +40,15 @@ class TagsController extends Controller
             $tags = $tags->where(['company_id' => $company_id]);
         }
 
+        if ($request->code) {
+            $tags = $tags->where('code', 'like', "%{$request->code}%");
+        }
+
         $tags = $tags->paginate(15, ['id', 'code', 'status', 'sub_status', 'access_level']);
 
         $html = '';
         foreach ($tags as $tag) {
+            $tag->unique = $tag->id . $tag->code;
             $html .= view('tags.card', compact('tag'));
         }
 

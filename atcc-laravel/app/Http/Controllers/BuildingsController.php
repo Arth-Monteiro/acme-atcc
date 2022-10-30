@@ -45,13 +45,20 @@ class BuildingsController extends Controller
         return view('buildings.floors.rooms.index', compact('building_id'), compact('floor_id'));
     }
 
-    public function searchBuildings(): JsonResponse
+    public function searchBuildings(Request $request): JsonResponse
     {
-        $buildings = Buildings::orderBy('name')->paginate(15, ['id', 'name', 'company_id']);
+        $buildings = Buildings::orderBy('name');
+
+        if ($request->code) {
+            $buildings = $buildings->where('name', 'ilike', "%{$request->code}%");
+        }
+
+        $buildings = $buildings->paginate(15, ['id', 'name', 'company_id']);
 
         $html = '';
         foreach ($buildings as $building) {
             $building->company_name = Companies::find($building->company_id)->fantasy_name;
+            $building->unique = $building->id . $building->company_id;
             $html .= view('buildings.card', compact('building'));
         }
 
@@ -61,11 +68,17 @@ class BuildingsController extends Controller
     public function searchFloors(int $building_id, Request $request): JsonResponse
     {
         $floors = Floors::where(['building_id' => $building_id])
-            ->orderBy('order')
-            ->paginate(15, ['id', 'name', 'order']);
+            ->orderBy('order');
+
+        if ($request->code) {
+            $floors = $floors->where('name', 'ilike', "%{$request->code}%");
+        }
+
+        $floors = $floors->paginate(15, ['id', 'name', 'order']);
 
         $html = '';
         foreach ($floors as $floor) {
+            $floor->unique = $floor->id . $floor->building_id;
             $html .= view('buildings.floors.card', compact('floor'), compact('building_id'));
         }
 
@@ -76,10 +89,17 @@ class BuildingsController extends Controller
     {
         $rooms = Rooms::where(['floor_id' => $floor_id])
             ->orderBy('name')
-            ->paginate(15, ['id', 'name', 'is_exit']);
+
+
+        if ($request->code) {
+            $rooms = $rooms->where('name', 'ilike', "%{$request->code}%");
+        }
+
+        $rooms = $rooms->paginate(15, ['id', 'name', 'is_exit']);
 
         $html = '';
         foreach ($rooms as $room) {
+            $room->unique = $room->id . $room->floor_id;
             $html .= view('buildings.floors.rooms.card', [
                 'building_id' => $building_id,
                 'floor_id' => $floor_id,

@@ -34,16 +34,23 @@ class PeopleController extends Controller
         return view('people.index');
     }
 
-    public function searchPeople(): JsonResponse
+    public function searchPeople(Request $request): JsonResponse
     {
         $company_id = Auth::user()->company_id;
+
         $where = isset($company_id) ? ['company_id' => $company_id] : [];
-        $people = People::where($where)
-            ->orderBy('id')
+        $people = People::where($where);
+        if ($request->code) {
+            $code = preg_replace('/[.-]/', '', $request->code);
+            $people = $people->where('cpf', 'like', "%{$code}%");
+        }
+        $people = $people->orderBy('firstname')
+            ->orderBy('lastname')
             ->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf', 'tag_id']);
 
         $html = '';
         foreach ($people as $person) {
+            $person->unique = $person->id . $person->cpf;
             $html .= view('people.card', compact('person'));
         }
 

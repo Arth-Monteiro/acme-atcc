@@ -43,3 +43,13 @@
 .red {
     background-color: #e80b0b;
 }
+
+.search-button {
+    border-radius: 5px;
+    border: 1px solid #c7c7c7;
+    padding: 0 20px;
+}
+
+.search-button:hover {
+    background-color: #d3d3d3;
+}
