@@ -22,12 +22,19 @@ class PeopleFactory extends Factory
 
         $name = $this->faker->name();
 
-        $tags= DB::select(DB::raw('
+        $companies = DB::select(DB::raw('
+            select c.id
+            from companies c
+            join tags t on c.id = t.company_id
+        '));
+
+        $company_id = $companies[rand(0, count($companies) -1)]->id;
+
+        $tags= DB::select(DB::raw("
             select t.id
             from tags t
-            left join people p on t.id = p.tag_id
-            where p.tag_id isnull
-        '));
+            where t.company_id = $company_id
+        "));
 
         $total_tags = count($tags);
 
@@ -43,8 +50,8 @@ class PeopleFactory extends Factory
             'job_title' => substr($this->faker->jobTitle(), 0, 20),
             'qualification' => $qualification[rand(0, count($qualification) -1)],
             'insert_by' => $name,
-            'tag_id' => $tags[rand(0, $total_tags-1)]->id,
-            'company_id' => Companies::inRandomOrder()->first(['id']),
+            'tag_id' => $tags[rand(0, $total_tags-1)]->id ?? null,
+            'company_id' => $company_id ,
             'update_by' => $name,
         ];
     }
