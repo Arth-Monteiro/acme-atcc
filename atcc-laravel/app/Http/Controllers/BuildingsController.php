@@ -67,8 +67,7 @@ class BuildingsController extends Controller
 
     public function searchFloors(int $building_id, Request $request): JsonResponse
     {
-        $floors = Floors::where(['building_id' => $building_id])
-            ->orderBy('order');
+        $floors = Floors::where(['building_id' => $building_id])->orderBy('order');
 
         if ($request->code) {
             $floors = $floors->where('name', 'ilike', "%{$request->code}%");
@@ -87,9 +86,7 @@ class BuildingsController extends Controller
 
     public function searchRooms(int $building_id, int $floor_id, Request $request): JsonResponse
     {
-        $rooms = Rooms::where(['floor_id' => $floor_id])
-            ->orderBy('name')
-
+        $rooms = Rooms::where(['floor_id' => $floor_id])->orderBy('name');
 
         if ($request->code) {
             $rooms = $rooms->where('name', 'ilike', "%{$request->code}%");
