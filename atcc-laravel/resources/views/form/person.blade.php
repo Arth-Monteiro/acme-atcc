@@ -92,7 +92,7 @@
                                                    required
                                                    autocomplete="email">
 
-                                            @error('email')
+                                            @ezrror('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

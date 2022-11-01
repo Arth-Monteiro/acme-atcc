@@ -46,11 +46,12 @@ class PeopleController extends Controller
         }
         $people = $people->orderBy('firstname')
             ->orderBy('lastname')
-            ->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf', 'tag_id']);
+            ->paginate(15, ['id', 'firstname', 'lastname', 'qualification', 'cpf', 'tag_id', 'company_id']);
 
         $html = '';
         foreach ($people as $person) {
             $person->unique = $person->id . $person->cpf;
+            $person->company = Companies::find($person->company_id)->fantasy_name;
             $html .= view('people.card', compact('person'));
         }
 

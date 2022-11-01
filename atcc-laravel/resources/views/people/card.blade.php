@@ -14,6 +14,12 @@
                 <th>Qualification</th>
                 <td>{{ $person->qualification }}</td>
             </tr>
+            @if(Auth::user()->getRole('code') === 'super_admin')
+                <tr>
+                    <th>Company</th>
+                    <td>{{ $person->company }}</td>
+                </tr>
+            @endif
         </table>
     </div>
 </div>
