@@ -58,3 +58,7 @@ Adicione ao launch.json
 }
 ```
 
+### Metabase
+Pode ser acessado via http://localhost:3000/
+User: super.admin@acme.com
+Senha: Senha@123!
