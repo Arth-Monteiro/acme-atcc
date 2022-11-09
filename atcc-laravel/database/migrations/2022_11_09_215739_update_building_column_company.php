@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdatePeopleColumnCompanyTag extends Migration
+class UpdateBuildingColumnCompany extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class UpdatePeopleColumnCompanyTag extends Migration
      */
     public function up()
     {
-        Schema::table('people', function(Blueprint $table) {
+        Schema::table('buildings', function(Blueprint $table) {
             $table->unsignedInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->dropUnique('people_email_unique');
-            $table->dropUnique('people_cpf_unique');
         });
     }
 
@@ -27,11 +25,9 @@ class UpdatePeopleColumnCompanyTag extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::table('people', function(Blueprint $table) {
-            $table->dropColumn('company_id');
-            $table->unique('cpf');
-            $table->unique('email');
+    {           
+        Schema::table('buildings', function(Blueprint $table) {
+            $table->drop_column('company_id');
         });
     }
 }

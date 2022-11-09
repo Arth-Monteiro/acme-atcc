@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdatePeopleColumnBuildingTag extends Migration
+class UpdatePeopleColumnBuilding extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,6 @@ class UpdatePeopleColumnBuildingTag extends Migration
         Schema::table('people', function(Blueprint $table) {
             $table->unsignedInteger('building_id')->nullable();
             $table->foreign('building_id')->references('id')->on('buildings');
-            $table->dropColumn('tag_id');
         });
     }
 
@@ -28,9 +27,7 @@ class UpdatePeopleColumnBuildingTag extends Migration
     public function down()
     {
         Schema::table('people', function($table) {
-            $table->dropColumn('building_id');
-            $table->unsignedInteger('tag_id')->nullable();
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->dropColumn('building_id');;
         });
     }
 }

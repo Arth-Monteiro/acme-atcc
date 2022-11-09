@@ -49,6 +49,7 @@
             "@php artisan key:generate --ansi"
         ],
         "migrate": "docker exec acme-atcc-web-laravel-1 php artisan migrate",
+        "migrate-fresh": "docker exec acme-atcc-web-laravel-1 php artisan migrate:fresh",
         "migrate-rollback": "docker exec acme-atcc-web-laravel-1 php artisan migrate:rollback",
         "seed": "docker exec acme-atcc-web-laravel-1 php artisan db:seed",
         "make-migration": "php artisan make:migration",

@@ -33,7 +33,7 @@ class PeopleFactory extends Factory
         $tags= DB::select(DB::raw("
             select t.id
             from tags t
-            where t.company_id = $company_id
+            where t.company_id = $company_id AND t.id NOT IN (SELECT tag_id FROM people)
         "));
 
         $total_tags = count($tags);

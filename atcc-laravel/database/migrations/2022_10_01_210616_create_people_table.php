@@ -27,7 +27,7 @@ class CreatePeopleTable extends Migration
             $table->enum('blood_type', People::BLOOD_TYPES);
             $table->enum('qualification', People::QUALIFICATION);
             $table->unsignedInteger('tag_id')->unique();
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('tag_id')->references('id')->on('tags')->nullable();
             $table->string('insert_by', 64);
             $table->string('update_by', 64);
             $table->timestamps();
