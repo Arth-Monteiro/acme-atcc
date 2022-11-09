@@ -30,10 +30,11 @@ class PeopleFactory extends Factory
 
         $company_id = $companies[rand(0, count($companies) -1)]->id;
 
-        $tags= DB::select(DB::raw("
+        $tags = DB::select(DB::raw("
             select t.id
             from tags t
-            where t.company_id = $company_id AND t.id NOT IN (SELECT tag_id FROM people)
+            left join people p on t.id = p.tag_id
+            where t.company_id = $company_id and p.tag_id isnull;
         "));
 
         $total_tags = count($tags);

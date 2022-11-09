@@ -14,6 +14,9 @@ class PeopleSeeder extends Seeder
      */
     public function run()
     {
-        People::factory()->count(50)->create();
+        for ($c=1; $c <= 50; $c++) {
+            People::factory()->create();
+        }
+        
     }
 }
