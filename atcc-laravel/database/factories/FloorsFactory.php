@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Buildings;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 class FloorsFactory extends Factory
 {
@@ -15,12 +16,22 @@ class FloorsFactory extends Factory
     public function definition()
     {
         $buildings = Buildings::all(['id']);
-        $total_buildings = count($buildings);
+        $building = $buildings[rand(0,  count($buildings)-1)]->id;
 
+        $level = DB::select(DB::raw("
+            select f.order
+            from floors f
+            where f.building_id = $building
+            order by f.order desc;
+        "));
+
+        $level = empty($level) ? 0 : $level[0]->order + 1;
+        $name = $level === 0 ? 'Térreo' : "{$level}º Andar";
+        
         return [
-            'name' => $this->faker->name(),
-            'order' => $this->faker->numberBetween(0, 10),
-            'building_id' =>  $buildings[rand(0,  $total_buildings-1)],
+            'name' => $name,
+            'order' => $level,
+            'building_id' =>  $building,
         ];
     }
 }
