@@ -137,6 +137,9 @@ Route::controller(UsersController::class)->group(function () {
 Route::controller(PanelController::class)->group(function () {
     Route::get('/panel', 'index')->name('panel_index');
     Route::get('/panel/list', 'searchBuildingInfos')->name('panel_list');
+    Route::get('/panel/rooms', 'searchRooms')->name('panel_rooms');
+    Route::get('/panel/people', 'searchPeople')->name('panel_people');
+    Route::get('/panel/count', 'getCount')->name('panel_count');
 });
 //*****************************************
 

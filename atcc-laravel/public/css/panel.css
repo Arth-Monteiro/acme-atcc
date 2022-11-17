@@ -1,0 +1,149 @@
+/*Variáveis*/
+:root{
+    --main-bg-color: #ccc;
+    --header-bg-color: #4b89e2;
+    --header-hover-color: #909090;
+    --footer-bg-color: #4b89e2;
+    --slctd-button-bg-color: #4b89e2;
+    --hovered-button-bg-color: #aaaaaa;
+    --hgltd-letters-color: #fff;
+    --painel-letters-color: #121212;
+    --plan-bg-color: #fff;
+    --plan-wall-color: #121212;
+    --plan-hgltd-bg-color: #909090;
+    --plan-nslctd-area-color: #ccc;
+    --building-front: grey;
+    --building-side: dimgrey;
+    --building-top: darkgrey;
+    --dropdown-color: #3a78ce;
+}
+/* Fim Variáveis */
+
+/* Painel */
+.panel-card{
+    color: var(--painel-letters-color);
+}
+.panel-card:not(.card-floor){
+    border: 1px var(--painel-letters-color) solid;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+.card-room{
+    border-radius: 0 !important;
+    border: 3px var(--painel-letters-color) solid !important;
+    padding: 0 !important;
+    text-align: center;
+    vertical-align: 50%;
+}
+#buildings div:hover,
+#floors div:not(.roof):hover,
+#rooms div:not(.selected-room):hover {
+    background: var(--hovered-button-bg-color);
+    cursor: pointer;
+}
+.panel-selected-card{
+    color: var(--hgltd-letters-color) !important;
+    background: var(--slctd-button-bg-color) !important;
+}
+.panel-selected-card:not(.card-floor){
+    border: 3px var(--hgltd-letters-color) solid !important;
+}
+#floors{
+    padding-left: 45px;
+}
+#floors div{
+    display:block;
+    width:100px;
+    background:var(--building-front);
+    height: 30px;
+    line-height:30px;
+    color: var(--painel-letters-color);
+    text-align:center;
+    margin-bottom:2px;
+    position:relative;
+}
+#floors div:not(.roof):after {
+    position:absolute;
+    content:"";
+    background:var(--building-side);
+    height: 20px;
+    width: 42px;
+    right: -36px;
+    top:-2px;
+    transform: skew(-45deg) rotate(45deg);
+}
+#floors div:hover:after {
+    background: var(--building-front);
+}
+div.panel-selected-card::after{
+    background: var(--footer-bg-color) !important;
+}
+#floors .roof{
+    width: 100px;
+    height: 13px;
+    margin-left: 13px;
+    background: var(--building-top);
+    transform: skew(-64deg);
+}
+#people-panel table,
+#people-panel table th,
+#people-panel table td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#people-panel table th,
+#people-panel table td {
+    padding: 15px;
+    text-align: center;
+}
+#people-panel table {
+    width: 100%;    
+    margin-left: 20px;
+}
+#people-panel table th{
+    background-color: var(--slctd-button-bg-color);
+    color: white;
+}
+#people-panel table td{
+    background-color: white;
+    color: black !important;
+}
+#people-panel table tr:hover td{
+    background-color: var(--building-top);
+}
+/* Fim Painel */
+
+/*Floor Plan*/
+.card-rooms a > rect,
+.card-rooms a > polygon{
+    stroke: var(--plan-wall-color);
+    stroke-width: 2;
+}
+.card-rooms a:not(.selected-room) > rect,
+.card-rooms a:not(.selected-room) > polygon{
+    fill: var(--main-bg-color);
+}
+.card-rooms a text{
+    stroke-width: 0.5;
+    font-family: 'Oswald';
+    font-size: 15;
+    fill: var(--painel-letters-color);
+}
+.card-rooms a:not(.selected-room) rect:hover,
+.card-rooms a:not(.selected-room) polygon:hover{
+    fill: var(--plan-hgltd-bg-color) !important;
+    cursor: pointer;
+}
+.card-rooms a:not(.selected-room) text:hover{
+    cursor: pointer;
+}
+.selected-room rect,
+.selected-room polygon{
+    fill: var(--slctd-button-bg-color);
+    stroke: white;
+}
+.selected-room text{
+    fill: white !important;
+}
+/*Fim Floor Plan*/
