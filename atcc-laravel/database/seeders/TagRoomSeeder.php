@@ -17,7 +17,7 @@ class TagRoomSeeder extends Seeder
      */
     public function run()
     {
-        $possible = DB::select(DB::raw('
+        $possible = DB::select('
             select
                 t.id as tag_id,
                 r.id as room_id,
@@ -27,7 +27,7 @@ class TagRoomSeeder extends Seeder
             join floors f on b.id = f.building_id
             join rooms r on f.id = r.floor_id
             join people p on t.id = p.tag_id;
-        '));
+        ');
 
         foreach ($possible as $pos) {
             TagRoom::create([

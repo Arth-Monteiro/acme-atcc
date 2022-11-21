@@ -23,23 +23,23 @@ class PeopleFactory extends Factory
 
         $name = $this->faker->name();
 
-        $companies = DB::select(DB::raw('
+        $companies = DB::select('
             select c.id as id, b.id as building_id
             from companies c
             join tags t on c.id = t.company_id
             join buildings b on c.id = b.company_id
-        '));
+        ');
 
         $company = $companies[rand(0, count($companies) -1)];
         $company_id = $company->id;
         $building_id = $company->building_id;
 
-        $tags = DB::select(DB::raw("
+        $tags = DB::select("
             select t.id
             from tags t
             left join people p on t.id = p.tag_id
             where t.company_id = $company_id and p.tag_id isnull;
-        "));
+        ");
 
         $total_tags = count($tags);
 

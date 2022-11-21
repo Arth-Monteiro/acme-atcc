@@ -25,9 +25,9 @@ class UpdateBuildingColumnCompany extends Migration
      * @return void
      */
     public function down()
-    {           
+    {
         Schema::table('buildings', function(Blueprint $table) {
-            $table->drop_column('company_id');
+            $table->dropColumn('company_id');
         });
     }
 }

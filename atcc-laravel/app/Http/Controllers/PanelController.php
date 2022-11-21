@@ -68,28 +68,17 @@ class PanelController extends Controller
     {
         $where_company = '';
         if (!!($company_id = Auth::user()->company_id)) {
-            $where_company = "WHERE t.company_id = $company_id";
+            $where_company = "AND tr.company_id = $company_id";
         }
 
-        $people = DB::select(DB::raw("
-            WITH v_tag_room as (
-                    SELECT DISTINCT ON (tr.tag_id, tr.people_id)
-                        tr.created_at,
-                        tr.tag_id,
-                        tr.people_id,
-                        tr.room_id
-                    FROM tag_room tr
-                    JOIN tags t ON tr.tag_id = t.id
-                    $where_company
-                    ORDER BY tr.tag_id, tr.people_id, tr.created_at DESC
-                )
+        $people = DB::select("
                 SELECT
-                    vtr.created_at,
+                    tr.created_at,
                     p.*
-                FROM v_tag_room vtr
-                JOIN people p ON vtr.people_id = p.id
-                WHERE vtr.room_id = {$request->room_id};
-        "));;
+                FROM mv_tag_room tr
+                JOIN people p ON tr.people_id = p.id
+                WHERE tr.room_id = {$request->room_id} $where_company;
+        ");;
 
 
         return response()->json(['people' => $people]);
@@ -104,22 +93,20 @@ class PanelController extends Controller
     {
         $where = '';
         if (!!($company_id = Auth::user()->company_id)) {
-            $where = "WHERE t.company_id = $company_id";
+            $where = "WHERE tr.company_id = $company_id";
         }
 
-        $tag_room = DB::select(DB::raw("
-            SELECT DISTINCT ON (tr.tag_id, tr.people_id)
-                tr.room_id,
-                r.floor_id,
-                f.building_id
-            FROM tag_room tr
-            JOIN tags t ON tr.tag_id = t.id
+        DB::statement('REFRESH MATERIALIZED VIEW mv_tag_room;');
+
+        $tag_room = DB::select("
+            SELECT tr.room_id, r.floor_id, f.building_id
+            FROM mv_tag_room tr
             LEFT JOIN rooms r ON tr.room_id = r.id
             LEFT JOIN floors f ON r.floor_id = f.id
             LEFT JOIN buildings b ON b.id = f.building_id
             $where
             ORDER BY tr.tag_id, tr.people_id, tr.created_at DESC;
-        "));;
+        ");;
 
         $count = [];
         foreach ($tag_room as $item) {

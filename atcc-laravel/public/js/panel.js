@@ -28,10 +28,8 @@ function showRooms(id){
 
             let rooms = response.rooms;
             rooms.forEach(function(room){
-                let blueprint = room.blueprint.split('</text>');
-                html += '<a id="' + room.id + '">'
-                        + blueprint[0] + room.name + ' - ' + "0" + '</text>' + blueprint[1]
-                        + '</a>';
+                let blueprint = room.blueprint.replace('{room_name}', room.name).replace('{room_count}', 0);
+                html += `<a id="${room.id}">${blueprint}</a>`;
             });
 
             html += '</svg>';
@@ -100,12 +98,6 @@ function getCount(){
 
             $(".card-number").html(0);
 
-            $("#rooms svg a text").each(function(){
-                let roomSVGText = $(this).html().split(' - ');
-                $(this).html(roomSVGText[0] + ' - 0');
-            });
-
-
             $.each(response.count, function(buildingId) {
                 $("#buildings #" + buildingId + " .card-number").html(this.total);
 
@@ -115,10 +107,9 @@ function getCount(){
 
                         $.each(value, function (keyInside, valueInside) {
                             if (keyInside !== 'total') {
-                                let textTag = $("#rooms svg #" + keyInside + " text");
+                                let textTag = $("#rooms svg #" + keyInside + " text:last-child");
                                 if(textTag && textTag.html()){
-                                    let roomSVGText = textTag.html().split(' - ');
-                                    textTag.html(roomSVGText[0] + ' - ' + valueInside.total);
+                                    textTag.html(valueInside.total);
                                 }
                             }
                         });
@@ -135,7 +126,7 @@ function getCount(){
 
 function automaticRefresh(){
     getCount();
-    setTimeout(function(){ automaticRefresh(); }, 30000);
+    setTimeout(function(){ automaticRefresh(); }, 6e4);
 }
 
 automaticRefresh();
