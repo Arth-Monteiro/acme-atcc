@@ -17,7 +17,7 @@ class CreateTagRoomTable extends Migration
             $table->id();
             $table->unsignedInteger('tag_id');
             $table->foreign('tag_id')->references('id')->on('tags');
-            $table->unsignedInteger('room_id');
+            $table->unsignedInteger('room_id')->nullable();
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();
         });

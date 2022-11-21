@@ -23,6 +23,13 @@
 .panel-card{
     color: var(--painel-letters-color);
 }
+.card-building{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
 .panel-card:not(.card-floor){
     border: 1px var(--painel-letters-color) solid;
     border-radius: 15px;
@@ -98,7 +105,7 @@ div.panel-selected-card::after{
     text-align: center;
 }
 #people-panel table {
-    width: 100%;    
+    width: 100%;
     margin-left: 20px;
 }
 #people-panel table th{
@@ -126,8 +133,8 @@ div.panel-selected-card::after{
 }
 .card-rooms a text{
     stroke-width: 0.5;
-    font-family: 'Oswald';
-    font-size: 15;
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
     fill: var(--painel-letters-color);
 }
 .card-rooms a:not(.selected-room) rect:hover,

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Buildings;
 use App\Models\Companies;
 use App\Models\People;
 use App\Models\Tags;
@@ -23,12 +24,15 @@ class PeopleFactory extends Factory
         $name = $this->faker->name();
 
         $companies = DB::select(DB::raw('
-            select c.id
+            select c.id as id, b.id as building_id
             from companies c
             join tags t on c.id = t.company_id
+            join buildings b on c.id = b.company_id
         '));
 
-        $company_id = $companies[rand(0, count($companies) -1)]->id;
+        $company = $companies[rand(0, count($companies) -1)];
+        $company_id = $company->id;
+        $building_id = $company->building_id;
 
         $tags = DB::select(DB::raw("
             select t.id
@@ -52,7 +56,8 @@ class PeopleFactory extends Factory
             'qualification' => $qualification[rand(0, count($qualification) -1)],
             'insert_by' => $name,
             'tag_id' => $tags[rand(0, $total_tags-1)]->id ?? null,
-            'company_id' => $company_id ,
+            'company_id' => $company_id,
+            'building_id' => $building_id,
             'update_by' => $name,
         ];
     }

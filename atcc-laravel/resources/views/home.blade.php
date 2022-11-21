@@ -13,7 +13,8 @@
             <div id="buildings" class="col-md-2 card-container">
                 @foreach ($buildings as $building)
                     <div id='{{ $building->id }}' class='panel-card card-building' onclick='showFloors({{ $building->id }})'>
-                        {{ $building->name }} - <span class='card-number'>0</span>
+                        <span>{{ $building->name }}</span>
+                        <span class='card-number'>0</span>
                     </div>
                 @endforeach
             </div>
@@ -21,7 +22,13 @@
                 <div style='display: none;' aria-building='buildingid' aria-value='building_levelid' class='roof card-floor'></div>
                 @foreach ($buildings as $building)
                     @foreach ($building->floors as $floor)
-                        <div style='display: none;' aria-building='{{ $building->id }}' id='{{ $floor->id }}' class='panel-card card-floor'  onclick='showRooms({{ $floor->id }})'> {{ $floor->name }} - <span class='card-number'>0</span></div>
+                        <div style='display: none;'
+                             aria-building='{{ $building->id }}'
+                             id='{{ $floor->id }}'
+                             class='panel-card card-floor'
+                             onclick='showRooms({{ $floor->id }})'>
+                            {{ $floor->name }} - <span class='card-number'>0</span>
+                        </div>
                     @endforeach
                 @endforeach
             </div>

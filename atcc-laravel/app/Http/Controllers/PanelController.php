@@ -6,6 +6,8 @@ use App\Models\Companies;
 use App\Models\Buildings;
 use App\Models\Floors;
 use App\Models\Rooms;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -27,12 +29,20 @@ class PanelController extends Controller
      *
      * @return Renderable
      */
-    public function index()
+    public function index(): Renderable
     {
-        $buildings = Buildings::all();
+        $where = [];
+        if (!!($company_id = Auth::user()->company_id)) {
+            $where = ['company_id' => $company_id];
+        }
+
+        $buildings = Buildings::where($where)
+                        ->whereRaw('exists(select id from floors where building_id = buildings.id)')
+                        ->orderBy('name')
+                        ->get();
 
         foreach ($buildings as $building){
-            $building->floors = Floors::where(['building_id' => $building->id])->orderBy('level', 'desc')->get();
+            $building->floors = Floors::where(['building_id' => $building->id])->orderBy('order', 'desc')->get();
         }
 
         return view('home',['buildings' => $buildings]);
@@ -43,7 +53,7 @@ class PanelController extends Controller
      *
      * @return JSON
      */
-    public function searchRooms(Request $request)
+    public function searchRooms(Request $request): JsonResponse
     {
         $rooms = Rooms::where(['floor_id' => $request->floor_id])->orderBy('name')->get();
         return response()->json(['rooms' => $rooms]);
@@ -54,34 +64,95 @@ class PanelController extends Controller
      *
      * @return JSON
      */
-    public function searchPeople(Request $request)
+    public function searchPeople(Request $request): JsonResponse
     {
-        $people = DB::table('tag_room')
-                      ->join('people', 'tag_room.tag_id', '=', 'people.tag_id')
-                      ->select('tag_room.created_at', 'people.*')
-                      ->where(['tag_room.room_id' => $request->room_id])
-                      ->get();
+        $where_company = '';
+        if (!!($company_id = Auth::user()->company_id)) {
+            $where_company = "WHERE t.company_id = $company_id";
+        }
+
+        $people = DB::select(DB::raw("
+            WITH v_tag_room as (
+                    SELECT DISTINCT ON (tr.tag_id, tr.people_id)
+                        tr.created_at,
+                        tr.tag_id,
+                        tr.people_id,
+                        tr.room_id
+                    FROM tag_room tr
+                    JOIN tags t ON tr.tag_id = t.id
+                    $where_company
+                    ORDER BY tr.tag_id, tr.people_id, tr.created_at DESC
+                )
+                SELECT
+                    vtr.created_at,
+                    p.*
+                FROM v_tag_room vtr
+                JOIN people p ON vtr.people_id = p.id
+                WHERE vtr.room_id = {$request->room_id};
+        "));;
+
+
         return response()->json(['people' => $people]);
     }
 
     /**
      * Gets the amount of people in each place based on traffic records
      *
-     * @return JSON
+     * @return JsonResponse
      */
-    public function getCount(){
-        $count = DB::table('tag_room')
-                      ->join('rooms', 'tag_room.room_id', '=', 'rooms.id')
-                      ->join('floors', 'rooms.floor_id', '=', 'floors.id')
-                      ->select('tag_room.room_id', 'rooms.floor_id', 'floors.building_id')
-                      ->get();
+    public function getCount(): JsonResponse
+    {
+        $where = '';
+        if (!!($company_id = Auth::user()->company_id)) {
+            $where = "WHERE t.company_id = $company_id";
+        }
+
+        $tag_room = DB::select(DB::raw("
+            SELECT DISTINCT ON (tr.tag_id, tr.people_id)
+                tr.room_id,
+                r.floor_id,
+                f.building_id
+            FROM tag_room tr
+            JOIN tags t ON tr.tag_id = t.id
+            LEFT JOIN rooms r ON tr.room_id = r.id
+            LEFT JOIN floors f ON r.floor_id = f.id
+            LEFT JOIN buildings b ON b.id = f.building_id
+            $where
+            ORDER BY tr.tag_id, tr.people_id, tr.created_at DESC;
+        "));;
+
+        $count = [];
+        foreach ($tag_room as $item) {
+
+            if (!empty($item->building_id)) {
+                if (isset($count[$item->building_id])) {
+                    $count[$item->building_id]['total'] += 1;
+                } else {
+                    $count[$item->building_id]['total'] = 1;
+                }
+
+                if (isset($count[$item->building_id][$item->floor_id])) {
+                    $count[$item->building_id][$item->floor_id]['total'] += 1;
+                } else {
+                    $count[$item->building_id][$item->floor_id]['total'] = 1;
+                }
+
+                if (isset($count[$item->building_id][$item->floor_id][$item->room_id])) {
+                    $count[$item->building_id][$item->floor_id][$item->room_id]['total'] += 1;
+                } else {
+                    $count[$item->building_id][$item->floor_id][$item->room_id]['total'] = 1;
+                }
+            }
+
+        }
+
         return response()->json(['count' => $count]);
     }
 
     public function searchBuildingInfos()
     {
         $buildings = Buildings::paginate(15, ['id', 'name']);
-        
+
         foreach ($buildings as $building){
             $floors = Floors::where(['building_id' => $building->id])->get();
 

@@ -26,10 +26,7 @@ Auth::routes();
 
 Route::get('/', fn ()  => redirect('/about'));
 Route::get('/about', fn () => view('about'));
-
-Route::get('/home',
-    [HomeController::class, 'index']
-)->name('home')->middleware('auth');
+Route::get('/home', fn ()  => redirect('/panel'));
 
 //*****************************************
 //Route for ROLES

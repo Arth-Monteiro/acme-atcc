@@ -1,10 +1,6 @@
 function showFloors(id){
-    $("#floors .card-floor").each(function(){
-        $(this).hide();
-    });
-    $("#floors div[aria-building='" + id + "']").each(function(){
-        $(this).show();
-    });
+    $("#floors .card-floor").hide();
+    $("#floors div[aria-building='" + id + "']").show();
     $(".roof").show();
     $("#buildings #" + id).addClass("panel-selected-card");
     $('.card-building').not(document.getElementById(id)).removeClass("panel-selected-card");
@@ -22,14 +18,14 @@ function showRooms(id){
 
     $.ajax({
         type: 'GET',
-        url: "http://localhost:8000/panel/rooms",
+        url: window.location.origin + '/panel/rooms',
         dataType: 'JSON',
         data: {
             "floor_id": id
         },
         success: function (response) {
             let html = '<svg class="card-rooms" width="500" height="400" xmlns="http://www.w3.org/2000/svg">';
-            
+
             let rooms = response.rooms;
             rooms.forEach(function(room){
                 let blueprint = room.blueprint.split('</text>');
@@ -61,14 +57,13 @@ function showContacts(id){
 
     $.ajax({
         type: 'GET',
-        url: "http://localhost:8000/panel/people",
+        url: window.location.origin + '/panel/people',
         dataType: 'JSON',
         data: {
             "room_id": id
         },
         success: function (response) {
-            console.log('response: ' + JSON.stringify(response));
-            
+
             let pessoasHTML = ` <tr aria-room='header'>
                                     <th> Nome </th>
                                     <th> Qualificação </th>
@@ -100,33 +95,36 @@ function formatDateTime(datetime){
 function getCount(){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:8000/panel/count",
+        url: window.location.origin + '/panel/count',
         success: function (response) {
-            console.log('response: ' + JSON.stringify(response));
 
             $(".card-number").html(0);
-            
+
             $("#rooms svg a text").each(function(){
                 let roomSVGText = $(this).html().split(' - ');
                 $(this).html(roomSVGText[0] + ' - 0');
             });
-            
-            response.count.forEach(function(iCount){
-                let buildingCount = parseInt($("#buildings #" + iCount.building_id + " .card-number").html(),10);
-                buildingCount++;
-                $("#buildings #" + iCount.building_id + " .card-number").html(buildingCount);
 
-                let floorCount = parseInt($("#floors #" + iCount.floor_id + " .card-number").html(),10);
-                floorCount++;
-                $("#floors #" + iCount.floor_id + " .card-number").html(floorCount);
 
-                let textTag = $("#rooms svg #" + iCount.room_id + " text");
-                if(textTag && textTag.html()){
-                    let roomSVGText = textTag.html().split(' - ');
-                    let roomCount = parseInt(roomSVGText[1],10);
-                    roomCount++;
-                    textTag.html(roomSVGText[0] + ' - ' + roomCount);
-                }
+            $.each(response.count, function(buildingId) {
+                $("#buildings #" + buildingId + " .card-number").html(this.total);
+
+                $.each(this, function (key, value) {
+                    if (key !== 'total') {
+                        $("#floors #" + key + " .card-number").html(value.total);
+
+                        $.each(value, function (keyInside, valueInside) {
+                            if (keyInside !== 'total') {
+                                let textTag = $("#rooms svg #" + keyInside + " text");
+                                if(textTag && textTag.html()){
+                                    let roomSVGText = textTag.html().split(' - ');
+                                    textTag.html(roomSVGText[0] + ' - ' + valueInside.total);
+                                }
+                            }
+                        });
+                    }
+
+                });
             });
         },
         error: function (response) {
