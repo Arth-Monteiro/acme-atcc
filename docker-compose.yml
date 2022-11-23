@@ -9,6 +9,7 @@ services:
     volumes:  
       - ./atcc-laravel:/var/www/html
       - ./.docker/php/conf:/usr/local/etc/php
+      - ./.docker/php/cron/log:/var/log
 
   db-acme:
     container_name: db-acme

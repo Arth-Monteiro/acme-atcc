@@ -16,3 +16,5 @@ yarn-error.log
 /public/js/app.js
 /public/css/app.css
 package-lock.json
+
+./docker/php/cron/log/cron.log

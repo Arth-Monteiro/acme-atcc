@@ -1,0 +1,37 @@
+[2022-11-23T20:31:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-23T20:31:01-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:32:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-23T20:32:01-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:33:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-23T20:33:01-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:34:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-23T20:34:01-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:35:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-23T20:35:01-03:00] Running scheduled command: Refresh Materialized View Tag Room
+
+   ArgumentCountError 
+
+  Too few arguments to function Illuminate\Console\Scheduling\Event::between(), 0 passed in /var/www/html/app/Console/Kernel.php on line 22 and exactly 2 expected
+
+  at vendor/laravel/framework/src/Illuminate/Console/Scheduling/ManagesFrequencies.php:29
+     25▕      * @param  string  $startTime
+     26▕      * @param  string  $endTime
+     27▕      * @return $this
+     28▕      */
+  ➜  29▕     public function between($startTime, $endTime)
+     30▕     {
+     31▕         return $this->when($this->inTimeInterval($startTime, $endTime));
+     32▕     }
+     33▕
+
+  1   app/Console/Kernel.php:22
+      Illuminate\Console\Scheduling\Event::between()
+
+      [2m+23 vendor frames [22m
+  25  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+[2022-11-23T20:37:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:38:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:39:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:40:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-23T20:41:00-03:00] Running scheduled command: Refresh Materialized View Tag Room

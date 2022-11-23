@@ -96,8 +96,6 @@ class PanelController extends Controller
             $where = "WHERE tr.company_id = $company_id";
         }
 
-        DB::statement('REFRESH MATERIALIZED VIEW mv_tag_room;');
-
         $tag_room = DB::select("
             SELECT tr.room_id, r.floor_id, f.building_id
             FROM mv_tag_room tr

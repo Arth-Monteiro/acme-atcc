@@ -17,6 +17,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule
+            ->exec('php artisan db:seed TagRoomSeeder')
+            ->everyMinute()
+            ->between('8:00', '20:00')
+            ->description('Update TagRoomTable');
+
+        $schedule
             ->call(fn() => DB::statement('REFRESH MATERIALIZED VIEW mv_tag_room;'))
             ->everyMinute()
             ->description('Refresh Materialized View Tag Room');
