@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BuildingsController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardsController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\RolesController;
@@ -59,6 +59,13 @@ Route::controller(CompaniesController::class)->group(function () {
 
     // DELETE
     Route::delete('/companies/{id}', 'delete')->name('companies_delete');
+});
+//*****************************************
+
+//*****************************************
+//Route for DASHBOARDS
+Route::controller(DashboardsController::class)->group(function () {
+    Route::get('/dashboards', 'index')->name('dashboards_index');
 });
 //*****************************************
 

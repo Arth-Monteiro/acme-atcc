@@ -84,7 +84,7 @@
                                     <a class="nav-link" href="{{ route('tags_index') }}">{{ __('Tags') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Dashboards') }}</a>
+                                    <a class="nav-link" href="{{ route('dashboards_index') }}">{{ __('Dashboards') }}</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
