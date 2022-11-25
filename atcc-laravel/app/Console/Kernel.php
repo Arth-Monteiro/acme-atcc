@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use App\Models\Tags;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
@@ -28,6 +30,23 @@ class Kernel extends ConsoleKernel
             ->between('8:00', '20:00')
             ->description('Refresh Materialized View Tag Room');
 
+        $schedule
+            ->exec('php artisan db:seed PeopleSeeder')
+            ->hourly()
+            ->between('10:00', '16:00')
+            ->description('creating people on database');
+
+        $schedule
+            ->exec('php artisan db:seed TagsSeeder')
+            ->daily()
+            ->description('creating tags on database');
+
+        $schedule
+            ->call(fn() => $this->updateTagsStatus())
+            ->hourly()
+            ->between('10:00', '16:00')
+            ->description('update tag status');
+
         // $schedule->command('inspire')->hourly();
     }
 
@@ -41,5 +60,11 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
+    }
+
+    protected function updateTagsStatus()
+    {
+        Tags::whereRaw('id IN (SELECT tag_id FROM people WHERE tag_id IS NOT NULL)')
+            ->update(['status' => 'Active', 'sub_status' => 'In use']);
     }
 }

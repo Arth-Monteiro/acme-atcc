@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Buildings;
 use App\Models\Companies;
 use App\Models\People;
+use App\Models\TagRoom;
 use App\Models\Tags;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use function Sodium\compare;
 
 class PeopleController extends Controller
 {
@@ -66,7 +70,8 @@ class PeopleController extends Controller
     public function createForm(): Renderable
     {
         $companies = $this->getCompaniesPerUser();
-        return view('form.person', compact('companies'));
+        $buildings = $this->getBuildingsPerUser();
+        return view('form.person', compact('companies'), compact('buildings'));
     }
 
     /**
@@ -79,15 +84,16 @@ class PeopleController extends Controller
     {
         $person = People::find($id);
         $companies = $this->getCompaniesPerUser();
+        $buildings = $this->getBuildingsPerUser();
 
         if ($person) {
-            return view('form.person', ['person' => $person, 'companies' => $companies]);
+            return view('form.person', ['person' => $person, 'companies' => $companies, 'buildings' => $buildings]);
         }
 
-        return redirect(route('people_view_create', compact('companies')));
+        return redirect(route('people_view_create', compact('companies'), compact('buildings')));
     }
 
-    public function setViewTagForPerson(int $people_id, int $tag_id)
+    public function setViewTagForPerson(int $people_id, int $tag_id): Renderable | RedirectResponse
     {
         $person = People::find($people_id);
 
@@ -111,7 +117,7 @@ class PeopleController extends Controller
         return redirect(route('people_view_create', compact('companies')));
     }
 
-    public function setTagForPerson(Request $request)
+    public function setTagForPerson(Request $request): RedirectResponse
     {
         $tag_id = $request->tag_id;
 
@@ -128,7 +134,7 @@ class PeopleController extends Controller
         }
     }
 
-    public function removeTagForPerson(Request $request)
+    public function removeTagForPerson(Request $request): JsonResponse
     {
         $tag = Tags::find($request->tag_id);
         $person = People::find($request->people_id);
@@ -140,13 +146,23 @@ class PeopleController extends Controller
         }
     }
 
-    protected function getCompaniesPerUser()
+    protected function getCompaniesPerUser(): array | Collection
     {
         $companies = [];
         if (!(Auth::user()->company_id)) {
             $companies = Companies::orderBy('fantasy_name')->get(['id', 'fantasy_name']);
         }
         return $companies;
+    }
+
+    protected function getBuildingsPerUser(): Collection
+    {
+        $where = [];
+        if (!!($company_id = Auth::user()->company_id)) {
+            $where = ['company_id' => $company_id];
+        }
+
+        return Buildings::where($where)->get(['id', 'name', 'company_id']);
     }
 
     /**
@@ -207,5 +223,33 @@ class PeopleController extends Controller
         if (People::find($id)->delete()) {
             return response()->json(['location' => route('people_index')]);
         }
+    }
+
+    public function checkPersonHistory(int $people_id): Renderable | RedirectResponse
+    {
+        $person = People::find($people_id);
+        $company_id = Auth::user()->company_id;
+
+        if ($person && (!isset($company_id) ||  $company_id === $person->company_id)) {
+            $history = DB::table('tag_room as tr')
+                        ->join('rooms as r', 'tr.room_id', '=', 'r.id')
+                        ->join('floors as f', 'r.floor_id', '=', 'f.id')
+                        ->join('buildings as b', 'f.building_id', '=', 'b.id')
+                        ->where('tr.people_id', $people_id)
+                        ->orderByDesc('tr.created_at')
+                        ->select('tr.created_at as created_at', 'r.name as room_name', 'f.name as floor_name', 'b.name as building_name')
+                        ->paginate(12);
+
+            $response = [
+                'history' => $history,
+                'person_name' => $person->firstname . ' ' . $person->lastname,
+                'person_id' => $people_id,
+                'cpf' => $person->cpf,
+            ];
+
+            return view('people.history', compact('response'));
+        }
+
+        return redirect(route('people_index'));
     }
 }

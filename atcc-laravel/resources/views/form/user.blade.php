@@ -80,60 +80,60 @@
                                         @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions) || in_array('*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
 
                                             <div class="row mb-3">
-                                            <label for="password" class="col-form-label">{{ __('Password') }}</label>
+                                                <label for="password" class="col-form-label">{{ __('Password') }}</label>
 
-                                            <div>
-                                                <input id="password"
-                                                       type="password"
-                                                       class="form-control @error('password') is-invalid @enderror"
-                                                       name="password"
-                                                       required
-                                                       autocomplete="new-password">
+                                                <div>
+                                                    <input id="password"
+                                                           type="password"
+                                                           class="form-control @error('password') is-invalid @enderror"
+                                                           name="password"
+                                                           required
+                                                           autocomplete="new-password">
 
-                                                @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                            <div class="row mb-3">
-                                            <label for="password-confirm" class="col-form-label">{{ __('Confirm Password') }}</label>
-
-                                            <div>
-                                                <input id="password-confirm"
-                                                       type="password"
-                                                       class="form-control"
-                                                       name="password_confirmation"
-                                                       required
-                                                       autocomplete="new-password">
-                                            </div>
-                                        </div>
-
-                                            <div class="row mb-3">
-                                            <label for="role_id" class="col-form-label">{{ __('Role') }}</label>
-
-                                            <div>
-                                                <select
-                                                    id="role_id"
-                                                    class="form-control @error('role_id') is-invalid @enderror"
-                                                    name="role_id">
-
-                                                    <option value="" disabled selected></option>
-                                                    @foreach($roles as $role)
-                                                        <option value="{{ $role->id }}" {{ ($user->role_id ?? old('role_id')) === $role->id ? "selected" : "" }}>{{ $role->name }}</option>
-                                                    @endforeach
-
-                                                </select>
-
-                                                @error('role_id')
-                                                <span class="invalid-feedback" role="alert">
+                                                    @error('password')
+                                                    <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
-                                                @enderror
+                                                    @enderror
+                                                </div>
                                             </div>
-                                        </div>
+
+                                            <div class="row mb-3">
+                                                <label for="password-confirm" class="col-form-label">{{ __('Confirm Password') }}</label>
+
+                                                <div>
+                                                    <input id="password-confirm"
+                                                           type="password"
+                                                           class="form-control"
+                                                           name="password_confirmation"
+                                                           required
+                                                           autocomplete="new-password">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label for="role_id" class="col-form-label">{{ __('Role') }}</label>
+
+                                                <div>
+                                                    <select
+                                                        id="role_id"
+                                                        class="form-control @error('role_id') is-invalid @enderror"
+                                                        name="role_id">
+
+                                                        <option value="" disabled selected></option>
+                                                        @foreach($roles as $role)
+                                                            <option value="{{ $role->id }}" {{ ($user->role_id ?? old('role_id')) === $role->id ? "selected" : "" }}>{{ $role->name }}</option>
+                                                        @endforeach
+
+                                                    </select>
+
+                                                    @error('role_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
 
                                         @endif
 

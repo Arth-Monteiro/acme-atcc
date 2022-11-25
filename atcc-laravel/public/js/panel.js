@@ -69,10 +69,10 @@ function showContacts(id){
                                 </tr>`;
 
             response.people.forEach(function(person){
-                pessoasHTML += `<tr class='panel-card card-contato'>
-                                    <td><a href='/people/` + person.id + `'>` + person.firstname + " " + person.lastname + `</a></td>
-                                    <td>` + person.qualification + `</td>
-                                    <td>` + formatDateTime(person.created_at) + `</td>
+                pessoasHTML += `<tr class='panel-card card-contato' onclick="window.location='/people/history/${person.id}'">
+                                    <td>${person.firstname} ${person.lastname}</td>
+                                    <td>${person.qualification}</td>
+                                    <td>${formatDateTime(person.created_at)}</td>
                                 </tr>`;
             });
 
@@ -82,12 +82,6 @@ function showContacts(id){
             console.log(response);
         }
     });
-}
-
-function formatDateTime(datetime){
-    let dateTimeSplit = datetime.split(' ');
-    let dateSplit = dateTimeSplit[0].split('-');
-    return dateSplit[2] + '/' + dateSplit[1] + '/' + dateSplit[0] + ' ' + dateTimeSplit[1];
 }
 
 function getCount(){

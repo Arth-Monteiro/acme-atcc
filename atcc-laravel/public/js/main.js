@@ -2,10 +2,15 @@ removeMask = function(value) {
     return value.replace(/[+-.()\s]/gm, '');
 }
 
+formatDateTime = function(datetime) {
+    let dateTimeSplit = datetime.split(' ');
+    let dateSplit = dateTimeSplit[0].split('-');
+    return dateSplit[2] + '/' + dateSplit[1] + '/' + dateSplit[0] + ' ' + dateTimeSplit[1];
+}
+
 $(document).ready(function() {
     $('#delete').on('click', function(evt) {
         evt.preventDefault();
-        console.log(window.location.pathname)
         if (confirm('Are you sure to delete this item')) {
             $.ajax({
                 type: 'DELETE',

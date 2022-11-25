@@ -33,6 +33,7 @@ class People extends Model
         'insert_by',
         'update_by',
         'company_id',
+        'building_id',
     ];
 
     /**
@@ -60,6 +61,7 @@ class People extends Model
             'job_title' => ['string', 'max:20'],
             'qualification' => ['required', Rule::in(self::QUALIFICATION)],
             'company_id' => ['sometimes', 'required', 'integer', 'exists:companies,id'],
+            'building_id' => ['sometimes', 'required', 'integer', 'exists:buildings,id'],
             'tag_id' => ['sometimes', 'nullable', 'integer', 'exists:tags,id', Rule::unique('people', 'tag_id')->ignore($request->id)],
         ];
     }

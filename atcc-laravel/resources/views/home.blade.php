@@ -4,6 +4,10 @@
     <script src="{{ asset('js/panel.js') }}"></script>
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/panel.css') }}" rel="stylesheet">
+
+    <style>
+
+    </style>
 @endpush
 
 @section('content')
@@ -25,7 +29,7 @@
                         <div style='display: none;'
                              aria-building='{{ $building->id }}'
                              id='{{ $floor->id }}'
-                             class='panel-card card-floor'
+                             class='panel-card card-floor fixed'
                              onclick='showRooms({{ $floor->id }})'>
                             {{ $floor->name }} - <span class='card-number'>0</span>
                         </div>

@@ -167,6 +167,8 @@ Route::controller(PeopleController::class)->group(function () {
     Route::get('/people/{people_id}/tag/{tag_id}', 'setViewTagForPerson')->name('people_view_tag');
     Route::post('/people/{people_id}/tag/{tag_id}', 'setTagForPerson')->name('people_tag_post');
     Route::delete('/people/{people_id}/tag/{tag_id}', 'removeTagForPerson')->name('people_tag_delete');
+
+    Route::get('/people/history/{people_id}', 'checkPersonHistory')->name('people_view_history');
 });
 //*****************************************
 

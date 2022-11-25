@@ -13,10 +13,20 @@
             emergency.mask('(00) 00000-0000');
 
             $("form").submit(function(){
-                cpf.val(removeMask(cpf.val()));company
+                cpf.val(removeMask(cpf.val()));
                 cel.val(removeMask(cel.val()));
                 emergency.val(removeMask(emergency.val()));
             });
+
+            $('#company_id').change(function () {
+                disableBuilding(parseInt(this.value, 10))
+            });
+
+            function disableBuilding(companyId) {
+                @foreach($buildings as $building)
+                    $('#building_{{ $building->id }}').prop( "disabled", {{ $building->company_id }} !== companyId );
+                @endforeach
+            }
         })
     </script>
 
@@ -252,29 +262,57 @@
 
                                     @if(Auth::user()->getRole('code') === 'super_admin')
                                         <div class="row mb-3">
-                                        <label for="company_id" class="col-form-label">{{ __('Company') }}</label>
+                                            <label for="company_id" class="col-form-label">{{ __('Client Company') }}</label>
+
+                                            <div>
+                                                <select
+                                                    id="company_id"
+                                                    class="form-control @error('company_id') is-invalid @enderror"
+                                                    name="company_id">
+
+                                                    <option value="" disabled selected></option>
+                                                    @foreach($companies as $company)
+                                                        <option value="{{ $company->id }}" {{ ($person->company_id ?? old('company_id')) === $company->id ? "selected" : "" }}>{{ $company->fantasy_name }}</option>
+                                                    @endforeach
+
+                                                </select>
+
+                                                @error('company_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="row mb-3">
+                                        <label for="building_id" class="col-form-label">{{ __('Building') }}</label>
 
                                         <div>
                                             <select
-                                                id="company_id"
-                                                class="form-control @error('company_id') is-invalid @enderror"
-                                                name="company_id">
+                                                id="building_id"
+                                                class="form-control @error('building_id') is-invalid @enderror"
+                                                name="building_id">
 
                                                 <option value="" disabled selected></option>
-                                                @foreach($companies as $company)
-                                                    <option value="{{ $company->id }}" {{ ($person->company_id ?? old('company_id')) === $company->id ? "selected" : "" }}>{{ $company->fantasy_name }}</option>
+                                                @foreach($buildings as $building)
+                                                    <option
+                                                        id="building_{{ $building->id }}"
+                                                        value="{{ $building->id }}" {{ ($person->building_id ?? old('building_id')) === $building->id ? "selected" : "" }}
+                                                    >{{ $building->name }}</option>
                                                 @endforeach
 
                                             </select>
 
-                                            @error('company_id')
+                                            @error('building_id')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
-                                    @endif
+
                                 </div>
                             </div>
 
