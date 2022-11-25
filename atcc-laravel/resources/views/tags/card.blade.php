@@ -1,5 +1,5 @@
 <div class="card card-link" id={{ $tag->unique }} onclick="window.location='{{ route('tags_view_edit', ['id' => $tag->id] ) }}'">
-    <div class="card-header {{ $tag->status === 'Active' ? 'green' : 'red' }}">
+    <div class="card-header {{ $tag->status === 'Ativo' ? 'green' : 'red' }}">
         {{ $tag->code }}
     </div>
     <div class="card-body">
