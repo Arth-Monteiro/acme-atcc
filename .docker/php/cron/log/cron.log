@@ -2409,3 +2409,41 @@ Parse error: syntax error, unexpected token ")" in /var/www/html/app/Console/Ker
 [2022-11-25T15:19:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
 [2022-11-25T15:20:00-03:00] Running scheduled command: Update TagRoomTable
 [2022-11-25T15:20:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:21:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:21:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:22:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:22:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:23:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:23:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:24:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:24:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:25:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:25:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:26:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:26:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:27:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:27:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:28:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:28:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:29:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:29:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:30:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:30:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:31:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:31:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:32:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:32:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:33:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:33:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:34:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:34:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:35:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:35:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:36:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:36:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:37:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:37:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:38:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:38:00-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-11-25T15:39:00-03:00] Running scheduled command: Update TagRoomTable
+[2022-11-25T15:39:00-03:00] Running scheduled command: Refresh Materialized View Tag Room

@@ -14,9 +14,8 @@ class PeopleSeeder extends Seeder
      */
     public function run()
     {
-        for ($c=1; $c <= rand(2, 10); $c++) {
+        for ($c=1; $c <= 50; $c++) {
             People::factory()->create();
         }
-
     }
 }

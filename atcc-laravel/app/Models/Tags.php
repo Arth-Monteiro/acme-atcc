@@ -10,8 +10,8 @@ class Tags extends Model
 {
     use HasFactory;
 
-    const STATUS = ['Active', 'Inactive'];
-    const SUB_STATUS = ['In use', 'Available', 'Out of Complex', 'Lost', 'Broken'];
+    const STATUS = ['Ativo', 'Inativo'];
+    const SUB_STATUS = ['Em uso', 'Disponível', 'Fora do Complexo', 'Perdido', 'Quebrado'];
     const ACCESS_LEVEL = ['A', 'B', 'C'];
 
     protected $fillable = [

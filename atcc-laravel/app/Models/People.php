@@ -11,7 +11,7 @@ class People extends Model
     use HasFactory;
 
     const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-    const QUALIFICATION = ['Visitor', 'Employee'];
+    const QUALIFICATION = ['Visitante', 'Funcionário'];
 
     /**
      * The attributes that are mass assignable.
