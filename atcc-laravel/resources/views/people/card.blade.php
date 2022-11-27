@@ -7,16 +7,16 @@
     <div class="card-body" onclick="window.location='{{ route('people_view_edit', ['id' => $person->id] ) }}'">
         <table class="table">
             <tr>
-                <th>Name</th>
+                <th>Nome</th>
                 <td>{{ $person->firstname  . ' ' . $person->lastname }}</td>
             </tr>
             <tr>
-                <th>Qualification</th>
+                <th>Qualificação</th>
                 <td>{{ $person->qualification }}</td>
             </tr>
             @if(Auth::user()->getRole('code') === 'super_admin')
                 <tr>
-                    <th>Company</th>
+                    <th>Empresa</th>
                     <td>{{ $person->company }}</td>
                 </tr>
             @endif
@@ -24,7 +24,7 @@
     </div>
     <button type="button" class="history"
             onclick="window.location='{{ route('people_view_history', [$person->id] ) }}'">
-        Check History
+        Consultar Histórico
     </button>
 </div>
 

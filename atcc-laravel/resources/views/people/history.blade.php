@@ -29,10 +29,10 @@
         <table>
             <thead>
                 <tr>
-                    <th>Building</th>
-                    <th>Floor</th>
-                    <th>Room</th>
-                    <th>Entered At</th>
+                    <th>Prédio</th>
+                    <th>Andar</th>
+                    <th>Sala</th>
+                    <th>Horário de Entrada</th>
                 </tr>
             </thead>
             <tbody>

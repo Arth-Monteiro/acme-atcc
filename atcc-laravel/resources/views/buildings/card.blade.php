@@ -5,7 +5,7 @@
     <div class="card-body" onclick="window.location='{{ route('buildings_view_edit', ['id' => $building->id] ) }}'">
         <table class="table">
             <tr>
-                <th>Company</th>
+                <th>Empresa</th>
                 <td>{{ $building->company_name }}</td>
             </tr>
         </table>

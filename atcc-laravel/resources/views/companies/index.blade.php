@@ -12,7 +12,7 @@
                 <input id="code" type="text" class="form-control cnpj" name="cnpj" autofocus placeholder="Procurar pelo CNPJ...">
                 <button id="search" type="button" class="search-button">Pesquisar</button>
             </div>
-            <a class="register-button" href="{{ route('companies_view_create') }}">{{ __('Register Company') }}</a>
+            <a class="register-button" href="{{ route('companies_view_create') }}">{{ __('Registrar Empresa') }}</a>
         </div>
 
         <div class="infinite-scroll">

@@ -12,7 +12,7 @@
                 <input id="code" type="text" class="form-control cpf" name="cpf" autofocus placeholder="Procurar pelo CPF...">
                 <button id="search" type="button" class="search-button">Pesquisar</button>
             </div>
-            <a class="register-button" href="{{ route('people_view_create') }}">{{ __('Register Person') }}</a>
+            <a class="register-button" href="{{ route('people_view_create') }}">{{ __('Registrar Pessoa') }}</a>
         </div>
 
         <div class="infinite-scroll">

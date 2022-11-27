@@ -9,10 +9,10 @@
     <div class="container w-75 d-flex flex-column gap-lg-5">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex gap-5">
-                <input id="code" type="text" class="form-control" name="code" autofocus placeholder="Search by Name...">
+                <input id="code" type="text" class="form-control" name="code" autofocus placeholder="Procurar pelo nome...">
                 <button id="search" type="button" class="search-button">Pesquisar</button>
             </div>
-            <a class="register-button" href="{{ route('users_view_create') }}">{{ __('Register User') }}</a>
+            <a class="register-button" href="{{ route('users_view_create') }}">{{ __('Registrar Usuário') }}</a>
         </div>
 
         <div class="infinite-scroll">

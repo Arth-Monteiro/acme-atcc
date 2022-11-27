@@ -75,16 +75,16 @@
                                 @endif
                             @else
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('panel_index') }}">{{ __('Panel') }}</a>
+                                    <a class="nav-link" href="{{ route('panel_index') }}">{{ __('Painel') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('people_index') }}">{{ __('People') }}</a>
+                                    <a class="nav-link" href="{{ route('people_index') }}">{{ __('Pessoas') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('tags_index') }}">{{ __('Tags') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('dashboards_index') }}">{{ __('Dashboards') }}</a>
+                                    <a class="nav-link" href="{{ route('dashboards_index') }}">{{ __('Gráficos') }}</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -107,16 +107,16 @@
                                         {{-- TODO: CREATE ROUTES--}}
                                         @if(in_array($role = Auth::user()->getRole('code'), [ 'super_admin', 'admin', ]))
                                             @if($role === 'super_admin')
-                                                <a class="dropdown-item" href="{{ route('roles_index') }}">{{ __('Roles') }}</a>
-                                                <a class="dropdown-item" href="{{ route('companies_index') }}">{{ __('Companies') }}</a>
-                                                <a class="dropdown-item" href="{{ route('buildings_index') }}">{{ __('Building') }}</a>
+                                                <a class="dropdown-item" href="{{ route('roles_index') }}">{{ __('Papéis') }}</a>
+                                                <a class="dropdown-item" href="{{ route('companies_index') }}">{{ __('Empresas') }}</a>
+                                                <a class="dropdown-item" href="{{ route('buildings_index') }}">{{ __('Prédios') }}</a>
                                             @endif
-                                            <a class="dropdown-item" href="{{ route('users_index') }}">{{ __('Users') }}</a>
+                                            <a class="dropdown-item" href="{{ route('users_index') }}">{{ __('Usuários') }}</a>
                                         @endif
 
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('Sair') }}
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -5,11 +5,11 @@
     <div class="card-body">
         <table class="table">
             <tr>
-                <th>Fantasy Name</th>
+                <th>Nome Fantasia</th>
                 <td>{{ $company->fantasy_name }}</td>
             </tr>
             <tr>
-                <th>Contact Email</th>
+                <th>Email de Contato</th>
                 <td>{{ $company->contact_email }}</td>
             </tr>
         </table>
