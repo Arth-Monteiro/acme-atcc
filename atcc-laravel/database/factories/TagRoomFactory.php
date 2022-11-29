@@ -15,18 +15,12 @@ class TagRoomFactory extends Factory
      */
     public function definition()
     {
-        $building_check = "
-            select distinct company_id
-            from buildings b
-            join floors f on b.id = f.building_id
-            join rooms r on f.id = r.floor_id
-        ";
-
-        $company = DB::table('companies')
-                    ->whereRaw('id IN (SELECT company_id FROM people WHERE company_id IS NOT NULL)')
-                    ->whereRaw("id IN ($building_check)")
+        $company = DB::table('companies as c')
+                    ->join('buildings as b', 'c.id', '=', 'b.company_id')
+                    ->whereRaw('b.id in (select building_id from people where building_id is not null)')
+                    ->whereRaw("b.id in (select building_id from floors f join rooms r on f.id = r.floor_id)")
                     ->inRandomOrder()
-                    ->first(['id']);
+                    ->first(['c.id as id', 'b.id as building_id']);
 
 
         $people = People::where(['company_id' => $company->id])
@@ -37,7 +31,7 @@ class TagRoomFactory extends Factory
 
         $room = DB::table('rooms')
                     ->join('floors', 'rooms.floor_id', '=', 'floors.id')
-                    ->where(['building_id' => $people->building_id])
+                    ->where(['building_id' => $company->building_id])
                     ->inRandomOrder()->first(['rooms.id']);
 
 
