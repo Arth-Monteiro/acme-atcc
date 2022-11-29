@@ -29,8 +29,8 @@
 
         <script src="{{ asset('js/main.js') }}"></script>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
-            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <!-- Fonts -->
@@ -131,13 +131,13 @@
                 </div>
             </nav>
 
-            <main class="py-4 flex-grow-1 ">
+            <main class="py-4 flex-grow-1">
                 @yield('content')
             </main>
 
             <footer>
                 <div class="text-center pb-2 pt-2 bg-dark text-white">
-                    <div> Site desenvolvido pelos alunos da turma ECP3AN-PLA da Universidade São Judas Tadeu</div>
+                    <div>Trabalho de conclusão de curso apresentado a Universidade São Judas Tadeu como parte dos requisitos para a obtenção do título de bacharel em Engenharia da Computação.</div>
                     <div> © {{ date('Y') }}. ACME Corp. Todos os Direitos Reservados.</div>
                 </div>
             </footer>
