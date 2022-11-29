@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\TagRoom;
 use App\Models\Tags;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -23,6 +24,12 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->between('8:00', '20:00')
             ->description('Update TagRoomTable');
+
+        $schedule
+            ->call(fn() => $this->insertNullTagRoomRegister())
+            ->everyMinute()
+            ->between('8:30', '19:30')
+            ->description('random insert on tag_room');
 
         $schedule
             ->call(fn() => DB::statement('REFRESH MATERIALIZED VIEW mv_tag_room;'))
@@ -66,5 +73,15 @@ class Kernel extends ConsoleKernel
     {
         Tags::whereRaw('id IN (SELECT tag_id FROM people WHERE tag_id IS NOT NULL)')
             ->update(['status' => 'Active', 'sub_status' => 'In use']);
+    }
+
+    protected function insertNullTagRoomRegister()
+    {
+        $tag = TagRoom::inRandomOrder()->first(['tag_id', 'people_id']);
+        TagRoom::create([
+            'tag_id' => $tag->tag_id,
+            'room_id' => null,
+            'people_id' => $tag->people_id,
+        ]);
     }
 }
