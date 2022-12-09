@@ -23,35 +23,41 @@ class Kernel extends ConsoleKernel
             ->exec('php artisan db:seed TagRoomSeeder')
             ->everyMinute()
             ->between('8:00', '20:00')
+            ->weekdays()
             ->description('Update TagRoomTable');
 
         $schedule
             ->call(fn() => $this->insertNullTagRoomRegister())
             ->everyMinute()
-            ->between('8:30', '19:30')
+            ->weekdays()
+            ->between('8:01', '20:30')
             ->description('random insert on tag_room');
 
         $schedule
             ->call(fn() => DB::statement('REFRESH MATERIALIZED VIEW mv_tag_room;'))
             ->everyMinute()
             ->between('8:00', '20:00')
+            ->weekdays()
             ->description('Refresh Materialized View Tag Room');
 
         $schedule
             ->exec('php artisan db:seed PeopleSeeder')
             ->hourly()
             ->between('10:00', '16:00')
+            ->weekdays()
             ->description('creating people on database');
 
         $schedule
             ->exec('php artisan db:seed TagsSeeder')
             ->daily()
+            ->weekdays()
             ->description('creating tags on database');
 
         $schedule
             ->call(fn() => $this->updateTagsStatus())
             ->hourly()
             ->between('10:00', '16:00')
+            ->weekdays()
             ->description('update tag status');
 
         // $schedule->command('inspire')->hourly();

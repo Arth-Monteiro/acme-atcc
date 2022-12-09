@@ -28,8 +28,10 @@ function showRooms(id){
 
             let rooms = response.rooms;
             rooms.forEach(function(room){
-                let blueprint = room.blueprint.replace('{room_name}', room.name).replace('{room_count}', 0);
-                html += `<a id="${room.id}">${blueprint}</a>`;
+                if (!$('#' + room.id).length) {
+                    let blueprint = room.blueprint.replace('{room_name}', room.name).replace('{room_count}', 0);
+                    html += `<a id="${room.id}">${blueprint}</a>`;
+                }
             });
 
             html += '</svg>';
@@ -62,18 +64,24 @@ function showContacts(id){
         },
         success: function (response) {
 
-            let pessoasHTML = ` <tr aria-room='header'>
+            let pessoasHTML = '';
+
+            if (!$('#person_header').length) {
+                pessoasHTML = `<tr id="person_header" aria-room='header'>
                                     <th> Nome </th>
                                     <th> Qualificação </th>
                                     <th> Entrada </th>
                                 </tr>`;
+            }
 
             response.people.forEach(function(person){
-                pessoasHTML += `<tr class='panel-card card-contato' onclick="window.location='/people/history/${person.id}'">
+                if (!$('#person_' + person.id).length) {
+                    pessoasHTML += `<tr id="person_${person.id}" class='panel-card card-contato' onclick="window.location='/people/history/${person.id}'">
                                     <td>${person.firstname} ${person.lastname}</td>
                                     <td>${person.qualification}</td>
                                     <td>${formatDateTime(person.created_at)}</td>
                                 </tr>`;
+                }
             });
 
             $("#people-panel table").append(pessoasHTML);
