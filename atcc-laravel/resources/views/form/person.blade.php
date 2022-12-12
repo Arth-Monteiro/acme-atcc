@@ -42,7 +42,7 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body p-lg-5">
                         <form method={{ 'POST' }} action="{{  isset($person) ? route('people_put', ['id' => $person->id]) : route('people_post') }}">
@@ -50,7 +50,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="input-register">
                                     <div class="row mb-3">
-                                        <label for="firstname" class="col-form-label">{{ __('First Name') }}</label>
+                                        <label for="firstname" class="col-form-label">{{ __('Primeiro Nome') }}</label>
 
                                         <div>
                                             <input id="firstname"
@@ -71,7 +71,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="lastname" class="col-form-label">{{ __('Last Name') }}</label>
+                                        <label for="lastname" class="col-form-label">{{ __('Úlitmo Nome') }}</label>
 
                                         <div>
                                             <input id="lastname"
@@ -91,7 +91,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="email" class="col-form-label">{{ __('Email Address') }}</label>
+                                        <label for="email" class="col-form-label">{{ __('Email') }}</label>
 
                                         <div>
                                             <input id="email"
@@ -132,7 +132,7 @@
                                 <div class="input-register">
 
                                     <div class="row mb-3">
-                                        <label for="cellphone" class="col-form-label">{{ __('Cell Phone') }}</label>
+                                        <label for="cellphone" class="col-form-label">{{ __('Celular') }}</label>
 
                                         <div>
                                             <input id="cellphone"
@@ -152,7 +152,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="emergency_contact" class="col-form-label">{{ __('Emergency Contact ') }}</label>
+                                        <label for="emergency_contact" class="col-form-label">{{ __('Contato de Emergência') }}</label>
 
                                         <div>
                                             <input id="emergency_contact"
@@ -172,7 +172,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="company" class="col-form-label">{{ __('Company') }}</label>
+                                        <label for="company" class="col-form-label">{{ __('Empresa') }}</label>
 
                                         <div>
                                             <input id="company"
@@ -192,7 +192,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="job_title" class="col-form-label">{{ __('Job Title') }}</label>
+                                        <label for="job_title" class="col-form-label">{{ __('Cargo') }}</label>
 
                                         <div>
                                             <input id="job_title"
@@ -216,7 +216,7 @@
                                 <div class="input-register">
 
                                     <div class="row mb-3">
-                                        <label for="blood_type" class="col-form-label">{{ __('Blood Type') }}</label>
+                                        <label for="blood_type" class="col-form-label">{{ __('Tipo Sangúineo') }}</label>
 
                                         <div>
                                             <select
@@ -240,7 +240,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="qualification" class="col-form-label">{{ __('Qualification') }}</label>
+                                        <label for="qualification" class="col-form-label">{{ __('Qualificação') }}</label>
 
                                         <div>
                                             <select id="qualification" class="form-control @error('qualification') is-invalid @enderror" name="qualification" >
@@ -262,7 +262,7 @@
 
                                     @if(Auth::user()->getRole('code') === 'super_admin')
                                         <div class="row mb-3">
-                                            <label for="company_id" class="col-form-label">{{ __('Client Company') }}</label>
+                                            <label for="company_id" class="col-form-label">{{ __('Empresa Cliente') }}</label>
 
                                             <div>
                                                 <select
@@ -287,7 +287,7 @@
                                     @endif
 
                                     <div class="row mb-3">
-                                        <label for="building_id" class="col-form-label">{{ __('Building') }}</label>
+                                        <label for="building_id" class="col-form-label">{{ __('Pŕedio') }}</label>
 
                                         <div>
                                             <select
@@ -321,11 +321,11 @@
                                 <div class="d-flex justify-content-end" style="column-gap: 10px">
                                     @if (isset($person))
                                         <button id="delete" class="btn" style="background-color: red;">
-                                            {{ __('Remove') }}
+                                            {{ __('Remover') }}
                                         </button>
                                     @endif
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Save') }}
+                                        {{ __('Salvar') }}
                                     </button>
                                 </div>
                             </div>

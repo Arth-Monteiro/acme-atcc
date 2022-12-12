@@ -28,7 +28,7 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body p-lg-5">
                         <form method={{ 'POST' }} action="{{  isset($company) ? route('companies_put', ['id' => $company->id]) : route('companies_post') }}">
@@ -55,7 +55,7 @@
                                     </div>
 
                                         <div class="row mb-3">
-                                        <label for="name" class="col-form-label">{{ __('Name') }}</label>
+                                        <label for="name" class="col-form-label">{{ __('Nome') }}</label>
 
                                         <div>
                                             <input id="name"
@@ -76,7 +76,7 @@
                                     </div>
 
                                         <div class="row mb-3">
-                                        <label for="fantasy_name" class="col-form-label">{{ __('Fantasy Name') }}</label>
+                                        <label for="fantasy_name" class="col-form-label">{{ __('Nome Fantasia') }}</label>
 
                                         <div>
                                             <input id="fantasy_name"
@@ -96,7 +96,7 @@
                                     </div>
 
                                         <div class="row mb-3">
-                                        <label for="contact_email" class="col-form-label">{{ __('Contact Email') }}</label>
+                                        <label for="contact_email" class="col-form-label">{{ __('Email de Contato') }}</label>
 
                                         <div>
                                             <input id="contact_email"
@@ -122,11 +122,11 @@
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($company))
                                             <button id="delete" type="button" class="btn" style="background-color: red;">
-                                                {{ __('Remove') }}
+                                                {{ __('Remover') }}
                                             </button>
                                         @endif
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Save') }}
+                                            {{ __('Salvar') }}
                                         </button>
                                     </div>
                                 </div>

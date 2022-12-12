@@ -100,7 +100,7 @@ class PeopleController extends Controller
         if ($person) {
             $company_id = Auth::user()->company_id;
             $where = isset($company_id) ? ['company_id' => $company_id] : [];
-            $tags = Tags::where(['status' => 'Active', 'sub_status' => 'Available', 'company_id' => $person->company_id] + $where    )
+            $tags = Tags::where(['status' => 'Ativo', 'sub_status' => 'Disponível', 'company_id' => $person->company_id] + $where    )
                 ->orWhere(['id' => $person->tag_id])
                 ->orderBy('code')
                 ->get(['id', 'code']);
@@ -126,10 +126,10 @@ class PeopleController extends Controller
         if ($tag->company_id === $person->company_id && (
             ($tag->company_id === Auth::user()->company_id) || (!isset(Auth::user()->company_id)) ) ) {
             if ($person->tag_id !== $tag_id && isset($person->tag_id)) {
-                Tags::find($person->tag_id)->update(['sub_status' => 'Available']);
+                Tags::find($person->tag_id)->update(['sub_status' => 'Ativo']);
             }
             $person->update(['tag_id' => $tag->id]);
-            $tag->update(['sub_status' => 'In use']);
+            $tag->update(['sub_status' => 'Em uso']);
             return redirect(route('people_index'));
         }
     }
@@ -141,7 +141,7 @@ class PeopleController extends Controller
         if ($tag->company_id === $person->company_id && (
                 ($tag->company_id === Auth::user()->company_id) || (!isset(Auth::user()->company_id)) ) ) {
             $person->update(['tag_id' => null]);
-            $tag->update(['sub_status' => 'Available']);
+            $tag->update(['sub_status' => 'Ativo']);
             return response()->json(['location' => route('people_index')]);
         }
     }
@@ -238,7 +238,7 @@ class PeopleController extends Controller
                         ->where('tr.people_id', $people_id)
                         ->orderByDesc('tr.created_at')
                         ->select('tr.created_at as created_at', 'r.name as room_name', 'f.name as floor_name', 'b.name as building_name')
-                        ->paginate(12);
+                        ->paginate(10);
 
             $response = [
                 'history' => $history,

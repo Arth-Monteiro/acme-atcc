@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body p-lg-5">
                         <form method={{ 'POST' }} action="{{  isset($floor) ? route('floors_put', ['id' => $floor->id, 'building_id' => $building_id]) : route('floors_post', compact('building_id')) }}">
@@ -29,7 +29,7 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="input-register">
                                         <div class="row mb-3">
-                                            <label for="name" class="col-form-label">{{ __('Name') }}</label>
+                                            <label for="name" class="col-form-label">{{ __('Nome') }}</label>
 
                                             <div>
                                                 <input id="name"
@@ -50,7 +50,7 @@
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="order" class="col-form-label">{{ __('Order') }}</label>
+                                            <label for="order" class="col-form-label">{{ __('Andar') }}</label>
 
                                             <div>
                                                 <input id="order"
@@ -77,11 +77,11 @@
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($floor))
                                             <button id="delete" type="button" class="btn" style="background-color: red;">
-                                                {{ __('Remove') }}
+                                                {{ __('Remover') }}
                                             </button>
                                         @endif
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Save') }}
+                                            {{ __('Salvar') }}
                                         </button>
                                     </div>
                                 </div>

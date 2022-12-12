@@ -78,7 +78,7 @@ class Kernel extends ConsoleKernel
     protected function updateTagsStatus()
     {
         Tags::whereRaw('id IN (SELECT tag_id FROM people WHERE tag_id IS NOT NULL)')
-            ->update(['status' => 'Active', 'sub_status' => 'In use']);
+            ->update(['status' => 'Active', 'sub_status' => 'Em uso']);
     }
 
     protected function insertNullTagRoomRegister()

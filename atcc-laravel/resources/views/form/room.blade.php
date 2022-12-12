@@ -80,7 +80,7 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body p-lg-5">
                         <form method={{ 'POST' }} action="{{  isset($room) ? route('rooms_put', ['id' => $room->id, $building_id, $floor_id]) : route('rooms_post', [$building_id, $floor_id]) }}">
@@ -89,7 +89,7 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="input-register">
                                         <div class="row mb-3">
-                                            <label for="name" class="col-form-label">{{ __('Name') }}</label>
+                                            <label for="name" class="col-form-label">{{ __('Nome') }}</label>
 
                                             <div>
                                                 <input id="name"
@@ -110,7 +110,7 @@
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="blueprint" class="col-form-label">{{ __('Blueprint') }}</label>
+                                            <label for="blueprint" class="col-form-label">{{ __('Planta') }}</label>
 
                                             <div>
                                                 <input id="blueprint"
@@ -132,7 +132,7 @@
 
                                         <div class="row mb-3">
 
-                                            <label for="is_exit" class="col-form-label">{{ __('Is Exit') }}</label>
+                                            <label for="is_exit" class="col-form-label">{{ __('É saída') }}</label>
 
                                             <div>
                                                 <label class="switch">
@@ -155,11 +155,11 @@
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($room))
                                             <button id="delete" type="button" class="btn" style="background-color: red;">
-                                                {{ __('Remove') }}
+                                                {{ __('Remover') }}
                                             </button>
                                         @endif
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Save') }}
+                                            {{ __('Salvar') }}
                                         </button>
                                     </div>
                                 </div>

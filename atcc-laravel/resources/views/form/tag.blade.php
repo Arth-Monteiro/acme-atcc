@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body w-50 d-flex flex-column m-auto">
                         <form method="{{ 'POST' }}" action="{{ isset($tag) ? route('tags_put', ['id' => $tag->id]) : route('tags_post') }}">
@@ -14,7 +14,7 @@
                             <div class="d-flex flex-row" >
 
                                 <div class="mb-3 flex-grow-1">
-                                    <label for="code" class="col-form-label">{{ __('Code') }}</label>
+                                    <label for="code" class="col-form-label">{{ __('Código') }}</label>
 
                                     <div class="w-75">
                                         <input id="code"
@@ -89,7 +89,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="access_level" class="col-form-label">{{ __('Access Level') }}</label>
+                                    <label for="access_level" class="col-form-label">{{ __('Nível de Acesso') }}</label>
 
                                     <div>
 
@@ -143,11 +143,11 @@
                                 <div class="d-flex justify-content-end" style="column-gap: 10px">
                                     @if (isset($tag))
                                         <button id="delete" class="btn" style="background-color: red;">
-                                            {{ __('Remove') }}
+                                            {{ __('Remover') }}
                                         </button>
                                     @endif
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Save') }}
+                                        {{ __('Salvar') }}
                                     </button>
                                 </div>
                             </div>

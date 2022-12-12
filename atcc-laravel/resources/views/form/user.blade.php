@@ -28,7 +28,7 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body p-lg-5">
                         <form method={{ 'POST' }} action="{{  isset($user) ? route('users_put', ['id' => $user->id]) : route('users_post') }}">
@@ -37,7 +37,7 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="input-register">
                                         <div class="row mb-3">
-                                            <label for="name" class="col-form-label">{{ __('Name') }}</label>
+                                            <label for="name" class="col-form-label">{{ __('Nome') }}</label>
 
                                             <div>
                                                 <input id="name"
@@ -58,7 +58,7 @@
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="email" class="col-form-label">{{ __('Email Address') }}</label>
+                                            <label for="email" class="col-form-label">{{ __('Email') }}</label>
 
                                             <div>
                                                 <input id="email"
@@ -80,7 +80,7 @@
                                         @if(in_array('users_*', \App\Models\Roles::find(Auth::user()->role_id)->permissions) || in_array('*', \App\Models\Roles::find(Auth::user()->role_id)->permissions))
 
                                             <div class="row mb-3">
-                                                <label for="password" class="col-form-label">{{ __('Password') }}</label>
+                                                <label for="password" class="col-form-label">{{ __('Senha') }}</label>
 
                                                 <div>
                                                     <input id="password"
@@ -99,7 +99,7 @@
                                             </div>
 
                                             <div class="row mb-3">
-                                                <label for="password-confirm" class="col-form-label">{{ __('Confirm Password') }}</label>
+                                                <label for="password-confirm" class="col-form-label">{{ __('Confirmação de Senha') }}</label>
 
                                                 <div>
                                                     <input id="password-confirm"
@@ -139,7 +139,7 @@
 
                                         @if(Auth::user()->getRole('code') === 'super_admin')
                                             <div class="row mb-3">
-                                                <label for="company_id" class="col-form-label">{{ __('Company') }}</label>
+                                                <label for="company_id" class="col-form-label">{{ __('Empresa') }}</label>
 
                                                 <div>
                                                     <select
@@ -171,11 +171,11 @@
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($user))
                                             <button id="delete" type="button" class="btn" style="background-color: red;">
-                                                {{ __('Remove') }}
+                                                {{ __('Remover') }}
                                             </button>
                                         @endif
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Save') }}
+                                            {{ __('Salvar') }}
                                         </button>
                                     </div>
                                 </div>

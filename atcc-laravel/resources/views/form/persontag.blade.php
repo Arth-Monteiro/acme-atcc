@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registro') }}</div>
 
                     <div class="card-body p-lg-5">
                         <form method={{ 'POST' }} action="{{  route('people_tag_post', [$people_id, $tag_id]) }}">
@@ -58,11 +58,11 @@
                                     <div class="d-flex justify-content-end" style="column-gap: 10px">
                                         @if (isset($tag_id) && $tag_id > 0)
                                             <button id="delete" type="button" class="btn" style="background-color: red;">
-                                                {{ __('Remove') }}
+                                                {{ __('Remover') }}
                                             </button>
                                         @endif
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Save') }}
+                                            {{ __('Salvar') }}
                                         </button>
                                     </div>
                                 </div>
