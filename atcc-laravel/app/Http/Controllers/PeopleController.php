@@ -126,7 +126,7 @@ class PeopleController extends Controller
         if ($tag->company_id === $person->company_id && (
             ($tag->company_id === Auth::user()->company_id) || (!isset(Auth::user()->company_id)) ) ) {
             if ($person->tag_id !== $tag_id && isset($person->tag_id)) {
-                Tags::find($person->tag_id)->update(['sub_status' => 'Ativo']);
+                Tags::find($person->tag_id)->update(['status' => 'Ativo', 'sub_status' => 'Disponível']);
             }
             $person->update(['tag_id' => $tag->id]);
             $tag->update(['sub_status' => 'Em uso']);
@@ -141,7 +141,7 @@ class PeopleController extends Controller
         if ($tag->company_id === $person->company_id && (
                 ($tag->company_id === Auth::user()->company_id) || (!isset(Auth::user()->company_id)) ) ) {
             $person->update(['tag_id' => null]);
-            $tag->update(['sub_status' => 'Ativo']);
+            $tag->update(['status' => 'Ativo', 'sub_status' => 'Disponível']);
             return response()->json(['location' => route('people_index')]);
         }
     }

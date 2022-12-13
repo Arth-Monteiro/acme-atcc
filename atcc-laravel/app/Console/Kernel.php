@@ -36,7 +36,6 @@ class Kernel extends ConsoleKernel
         $schedule
             ->call(fn() => DB::statement('REFRESH MATERIALIZED VIEW mv_tag_room;'))
             ->everyMinute()
-            ->between('8:00', '20:00')
             ->weekdays()
             ->description('Refresh Materialized View Tag Room');
 
