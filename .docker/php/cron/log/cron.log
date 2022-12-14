@@ -2454,3 +2454,5 @@ Parse error: syntax error, unexpected token ")" in /var/www/html/app/Console/Ker
 No scheduled commands are ready to run.
 No scheduled commands are ready to run.
 No scheduled commands are ready to run.
+[2022-12-14T20:36:01-03:00] Running scheduled command: Refresh Materialized View Tag Room
+[2022-12-14T20:36:01-03:00] Running scheduled command: update tag status

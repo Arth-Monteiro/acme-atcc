@@ -71,7 +71,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="lastname" class="col-form-label">{{ __('Úlitmo Nome') }}</label>
+                                        <label for="lastname" class="col-form-label">{{ __('Último Nome') }}</label>
 
                                         <div>
                                             <input id="lastname"
