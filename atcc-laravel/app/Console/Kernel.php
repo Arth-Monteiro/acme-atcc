@@ -54,8 +54,7 @@ class Kernel extends ConsoleKernel
 
         $schedule
             ->call(fn() => $this->updateTagsStatus())
-            ->hourly()
-            ->between('10:00', '16:00')
+            ->everyMinute()
             ->weekdays()
             ->description('update tag status');
 
@@ -77,7 +76,7 @@ class Kernel extends ConsoleKernel
     protected function updateTagsStatus()
     {
         Tags::whereRaw('id IN (SELECT tag_id FROM people WHERE tag_id IS NOT NULL)')
-            ->update(['status' => 'Active', 'sub_status' => 'Em uso']);
+            ->update(['status' => 'Ativo', 'sub_status' => 'Em uso']);
     }
 
     protected function insertNullTagRoomRegister()
