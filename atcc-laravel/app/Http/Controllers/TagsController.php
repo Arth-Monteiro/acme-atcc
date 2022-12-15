@@ -77,7 +77,9 @@ class TagsController extends Controller
         $tag = Tags::find($id);
         $companies = $this->getCompaniesPerUser();
 
-        if ($tag) {
+        $company_id = Auth::user()->company_id;
+
+        if ($tag && (!isset($company_id) || $tag->company_id === $company_id)) {
             return view('form.tag', ['tag' => $tag, 'companies' => $companies]);
         }
 

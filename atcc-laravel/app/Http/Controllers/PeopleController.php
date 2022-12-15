@@ -86,7 +86,9 @@ class PeopleController extends Controller
         $companies = $this->getCompaniesPerUser();
         $buildings = $this->getBuildingsPerUser();
 
-        if ($person) {
+        $company_id = Auth::user()->company_id;
+
+        if ($person && (!isset($company_id) || $person->company_id === $company_id)) {
             return view('form.person', ['person' => $person, 'companies' => $companies, 'buildings' => $buildings]);
         }
 
@@ -97,8 +99,8 @@ class PeopleController extends Controller
     {
         $person = People::find($people_id);
 
-        if ($person) {
-            $company_id = Auth::user()->company_id;
+        $company_id = Auth::user()->company_id;
+        if ($person && (!isset($company_id) || $person->company_id === $company_id)) {
             $where = isset($company_id) ? ['company_id' => $company_id] : [];
             $tags = Tags::where(['status' => 'Ativo', 'sub_status' => 'Disponível', 'company_id' => $person->company_id] + $where    )
                 ->orWhere(['id' => $person->tag_id])

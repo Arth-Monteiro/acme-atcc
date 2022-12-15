@@ -69,7 +69,8 @@ class UsersController extends Controller
         $user = User::find($id);
         [$roles, $companies] = $this->getRolesAndCompanies();
 
-        if ($user) {
+        $company_id = Auth::user()->company_id;
+        if ($user && (!isset($company_id) || $user->company_id === $company_id)) {
             return view('form.user', [
                 'user' => $user,
                 'companies' => $companies,
